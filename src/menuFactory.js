@@ -121,12 +121,15 @@ export default (styles) => {
         pageWrapId: '',
         styles: {},
         width: 300,
-		breakpoint: 960
+		breakpoint: 960,
+		isOpen: false
       };
     },
 
     getInitialState() {
-      return { isOpen: false };
+      return { 
+		isOpen: this.props.isOpen
+	  };
     },
 
     componentWillMount() {
@@ -142,6 +145,9 @@ export default (styles) => {
 
     componentDidMount() {
       window.onkeydown = this.listenForClose;
+	  if(this.props.isOpen) {
+	  	this.toggleMenu();
+	  }
     },
 
     componentWillUnmount() {

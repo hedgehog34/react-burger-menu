@@ -91,6 +91,7 @@ var Example = React.createClass({
 * `elastic`
 * `bubble`
 * `push`
+* `squeeze`
 * `pushRotate`
 * `scaleDown`
 * `scaleRotate`
@@ -134,10 +135,16 @@ Animation | `pageWrapId` | `outerContainerId`
 `elastic` | &#x2713; | &#x2713;
 `bubble` | |
 `push` | &#x2713; | &#x2713;
+`squeeze` | &#x2713; | &#x2713;
 `pushRotate` |  &#x2713;  |  &#x2713;
 `scaleDown` |  &#x2713;  |  &#x2713;
 `scaleRotate` |  &#x2713;  |  &#x2713;
 `fallDown` |  &#x2713;  |  &#x2713;
+
+Additionally squeeze animation accepts `breakpoint` prop, which describes the point in viewport width, where there is no longer desired to content to shrink. Its default value is `960`, but this can be controlled:
+``` javascript
+<Menu breakpoint={ 660 } />
+```
 
 #### Position
 

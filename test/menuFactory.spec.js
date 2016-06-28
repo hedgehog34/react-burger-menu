@@ -127,10 +127,6 @@ describe('menuFactory', () => {
       expect(React.Children.count(component.props.children)).to.equal(2);
     });
 
-    it('is initially closed', () => {
-      expect(Menu.prototype.getInitialState().isOpen).to.be.false;
-    });
-
     it('closes on Escape key press', () => {
       component = TestUtils.renderIntoDocument(<Menu />);
       component.setState({ isOpen: true });

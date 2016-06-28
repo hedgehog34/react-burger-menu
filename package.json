@@ -1,13 +1,13 @@
 {
-  "name": "react-burger-menu",
-  "version": "1.9.0",
+  "name": "react-burger-menu-accountz",
+  "version": "1.0.1",
   "description": "An off-canvas sidebar component with a collection of effects and styles using CSS transitions and SVG path animations",
   "main": "lib/BurgerMenu.js",
-  "author": "Imogen Wentworth",
-  "homepage": "https://github.com/negomi/react-burger-menu",
+  "author": "Robert Jezyk",
+  "homepage": "https://github.com/hedgehog34/react-burger-menu",
   "repository": {
     "type": "git",
-    "url": "https://github.com/negomi/react-burger-menu.git"
+    "url": "https://github.com/hedgehog34/react-burger-menu.git"
   },
   "bugs": {
     "url": "https://github.com/negomi/react-burger-menu/issues"
@@ -21,17 +21,17 @@
     "snapsvg": "^0.4.0"
   },
   "devDependencies": {
-    "babel-core": "^6.3.26",
-    "babel-eslint": "^6.0.0",
+    "babel-core": "^6.10.4",
+    "babel-eslint": "^6.1.0",
     "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
+    "babel-preset-react": "^6.11.1",
     "babel-register": "^6.3.13",
     "chai": "^3.2.0",
-    "eslint": "^2.1.0",
-    "eslint-plugin-react": "^5.0.1",
+    "eslint": "^2.13.1",
+    "eslint-plugin-react": "^5.2.2",
     "gulp": "^3.8.11",
     "gulp-mocha": "^2.2.0",
-    "jsdom": "^9.0.0",
+    "jsdom": "^9.3.0",
     "mocha": "^2.3.4",
     "react-addons-test-utils": "^15.0.0",
     "react-component-gulp-tasks": "^0.7.1",
