@@ -121,15 +121,13 @@ export default (styles) => {
         pageWrapId: '',
         styles: {},
         width: 300,
-		breakpoint: 960,
-		isOpen: false
+		breakpoint: 960
       };
     },
 
     getInitialState() {
-      return { 
-		isOpen: this.props.isOpen
-	  };
+      const initialIsOpenProp = this.props && typeof this.props.isOpen !== 'undefined';
+	  return { isOpen: initialIsOpenProp ? this.props.isOpen : false };
     },
 
     componentWillMount() {
@@ -145,6 +143,8 @@ export default (styles) => {
 
     componentDidMount() {
       window.onkeydown = this.listenForClose;
+
+	  // Allow initial open state to be set by props for animations with wrapper elements.
 	  if(this.props.isOpen) {
 	  	this.toggleMenu();
 	  }
