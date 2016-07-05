@@ -1,6 +1,6 @@
 {
   "name": "react-burger-menu",
-  "version": "1.9.0",
+  "version": "1.9.7",
   "description": "An off-canvas sidebar component with a collection of effects and styles using CSS transitions and SVG path animations",
   "main": "lib/BurgerMenu.js",
   "author": "Imogen Wentworth",
@@ -16,8 +16,6 @@
     "browserify-optional": "^1.0.0",
     "classnames": "^2.1.1",
     "radium": "^0.17.0",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
     "snapsvg": "^0.4.0"
   },
   "devDependencies": {
@@ -27,7 +25,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-register": "^6.3.13",
     "chai": "^3.2.0",
-    "eslint": "^2.1.0",
+    "eslint": "^3.0.0",
     "eslint-plugin-react": "^5.0.1",
     "gulp": "^3.8.11",
     "gulp-mocha": "^2.2.0",
@@ -36,6 +34,10 @@
     "react-addons-test-utils": "^15.0.0",
     "react-component-gulp-tasks": "^0.7.1",
     "sinon": "^1.16.1"
+  },
+  "peerDependencies": {
+    "react": ">=0.14.0 <16.0.0",
+    "react-dom": ">=0.14.0 <16.0.0"
   },
   "browserify": {
     "transform": [
@@ -58,6 +60,9 @@
     "test": "gulp test --reporter dot",
     "tdd": "gulp watch:tests --reporter spec",
     "watch": "gulp watch:lib"
+  },
+  "engines": {
+    "node" : ">=4.0.0"
   },
   "readmeFilename": "README.md",
   "keywords": [
