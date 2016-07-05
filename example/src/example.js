@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BurgerMenu from 'react-burger-menu';
+import BurgerMenu from 'react-burger-menu-accountz';
 import classNames from 'classnames';
 
 let MenuWrap = React.createClass({
@@ -104,7 +104,7 @@ let Demo = React.createClass({
     } else {
       jsx = (
         <MenuWrap wait={ 20 }>
-          <Menu isOpen id={ this.state.currentMenu } pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }>
+          <Menu id={ this.state.currentMenu } pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }>
             { items }
           </Menu>
         </MenuWrap>

@@ -64,9 +64,11 @@ export default (styles) => {
       const html = document.querySelector('html');
       const body = document.querySelector('body');
       const wrapper = document.getElementById(id);
-
+	  
       if (!wrapper) {
-        console.error("Element with ID '" + id + "' not found");
+		if(!this.state.isOpen) {
+			console.error("Element with ID '" + id + "' not found");
+		}
         return;
       }
 
