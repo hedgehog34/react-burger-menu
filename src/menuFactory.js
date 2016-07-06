@@ -66,9 +66,7 @@ export default (styles) => {
       const wrapper = document.getElementById(id);
 
       if (!wrapper) {
-		if(!this.state.isOpen) {
-        	console.error("Element with ID '" + id + "' not found");
-		}
+        console.error("Element with ID '" + id + "' not found");
         return;
       }
 
