@@ -25,6 +25,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-register": "^6.3.13",
     "chai": "^3.2.0",
+    "cross-env": "^1.0.8",
     "eslint": "^2.13.1",
     "eslint-plugin-react": "^5.2.2",
     "gulp": "^3.8.11",
@@ -51,8 +52,7 @@
     "snapsvg": "global:Snap"
   },
   "scripts": {
-    "build": "gulp clean && NODE_ENV=production gulp build",
-    "build_windows": "set NODE_ENV=production&&gulp clean && gulp build",
+    "build": "cross-env NODE_ENV=production gulp clean && gulp build",
     "examples": "gulp dev:server",
     "lint": "eslint ./; true",
     "publish:site": "gulp publish:examples",
@@ -63,7 +63,7 @@
     "watch": "gulp watch:lib"
   },
   "engines": {
-    "node" : ">=4.0.0"
+    "node": ">=4.0.0"
   },
   "readmeFilename": "README.md",
   "keywords": [
