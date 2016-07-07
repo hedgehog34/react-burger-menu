@@ -167,7 +167,7 @@ export default (styles) => {
           // This will throw with Webpack.
           s = styles.svg.lib(morphShape);
           path = s.select('path');
-        } catch (e) {
+        } catch(e) {
           console.warn('It looks like you might be using Webpack. Unfortunately, Elastic and Bubble are not currently supported with Webpack builds due to their Snap.svg dependency. See https://github.com/adobe-webplatform/Snap.svg/issues/341 for more info.');
           return;
         }
@@ -197,7 +197,7 @@ export default (styles) => {
           <div id={this.props.id} className={"bm-menu-wrap"} style={this.getStyles('menuWrap')}>
             {styles.svg ? (
               <div className="bm-morph-shape" style={this.getStyles('morphShape')}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <svg width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
                   <path d={styles.svg.pathInitial}/>
                 </svg>
               </div>

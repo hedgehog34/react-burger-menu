@@ -1,6 +1,6 @@
 {
-  "name": "react-burger-menu-accountz",
-  "version": "1.0.9",
+  "name": "react-burger-menu",
+  "version": "1.0.10",
   "description": "An off-canvas sidebar component with a collection of effects and styles using CSS transitions and SVG path animations",
   "main": "lib/BurgerMenu.js",
   "author": "Robert Jezyk",
@@ -16,8 +16,6 @@
     "browserify-optional": "^1.0.0",
     "classnames": "^2.1.1",
     "radium": "^0.17.0",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
     "snapsvg": "^0.4.0"
   },
   "devDependencies": {
@@ -36,6 +34,10 @@
     "react-addons-test-utils": "^15.0.0",
     "react-component-gulp-tasks": "^0.7.1",
     "sinon": "^1.16.1"
+  },
+  "peerDependencies": {
+    "react": ">=0.14.0 <16.0.0",
+    "react-dom": ">=0.14.0 <16.0.0"
   },
   "browserify": {
     "transform": [
@@ -59,6 +61,9 @@
     "test": "gulp test --reporter dot",
     "tdd": "gulp watch:tests --reporter spec",
     "watch": "gulp watch:lib"
+  },
+  "engines": {
+    "node" : ">=4.0.0"
   },
   "readmeFilename": "README.md",
   "keywords": [

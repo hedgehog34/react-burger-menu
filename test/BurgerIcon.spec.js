@@ -130,15 +130,14 @@ describe('BurgerIcon component', () => {
       const button = component.props.children[1];
       const expected = {
         position: 'absolute',
-        bottom: 0,
-        top: 0,
         left: 0,
-        right: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
         margin: 0,
         padding: 0,
         border: 'none',
-        fontSize: 12,
-        textIndent: '-9999px',
+        textIndent: -9999,
         background: 'transparent',
         outline: 'none'
       };
