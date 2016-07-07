@@ -1,5 +1,5 @@
 {
-  "name": "react-burger-menu",
+  "name": "react-burger-menu-accountz",
   "version": "1.0.10",
   "description": "An off-canvas sidebar component with a collection of effects and styles using CSS transitions and SVG path animations",
   "main": "lib/BurgerMenu.js",
