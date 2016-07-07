@@ -38,14 +38,13 @@ var BurgerIcon = (0, _radium2['default'])(_react2['default'].createClass({
             var buttonStyle = {
                     position: 'absolute',
                     left: 0,
-                    right: 0,
                     top: 0,
-                    bottom: 0,
+                    width: '100%',
+                    height: '100%',
                     margin: 0,
                     padding: 0,
                     border: 'none',
-                    fontSize: 12,
-                    textIndent: '-9999px',
+                    textIndent: -9999,
                     background: 'transparent',
                     outline: 'none'
                 };
@@ -155,14 +154,13 @@ var CrossIcon = (0, _radium2['default'])(_react2['default'].createClass({
             var buttonStyle = {
                     position: 'absolute',
                     left: 0,
-                    right: 0,
                     top: 0,
-                    bottom: 0,
+                    width: '100%',
+                    height: '100%',
                     margin: 0,
                     padding: 0,
                     border: 'none',
-                    fontSize: 8,
-                    color: 'transparent',
+                    textIndent: -9999,
                     background: 'transparent',
                     outline: 'none'
                 };
@@ -440,7 +438,6 @@ exports['default'] = function (styles) {
                 className: 'bm-morph-shape',
                 style: this.getStyles('morphShape')
             }, _react2['default'].createElement('svg', {
-                xmlns: 'http://www.w3.org/2000/svg',
                 width: '100%',
                 height: '100%',
                 viewBox: '0 0 100 800',
@@ -472,19 +469,18 @@ exports['default'] = function (styles) {
 module.exports = exports['default'];
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./BurgerIcon":1,"./CrossIcon":3,"./baseStyles":4}],6:[function(require,module,exports){
-(function (global){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { 'default': obj };
 }
-var _snapsvg = typeof window !== 'undefined' ? window['Snap'] : typeof global !== 'undefined' ? global['Snap'] : null;
-var _snapsvg2 = _interopRequireDefault(_snapsvg);
+var _snapsvgImporter = require('../snapsvgImporter');
+var _snapsvgImporter2 = _interopRequireDefault(_snapsvgImporter);
 var _menuFactory = require('../menuFactory');
 var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         svg: {
-            lib: _snapsvg2['default'],
+            lib: _snapsvgImporter2['default'],
             pathInitial: 'M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z',
             pathOpen: 'M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z',
             animate: function animate(path) {
@@ -547,21 +543,19 @@ var styles = {
     };
 exports['default'] = (0, _menuFactory2['default'])(styles);
 module.exports = exports['default'];
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../menuFactory":5}],7:[function(require,module,exports){
-(function (global){
+},{"../menuFactory":5,"../snapsvgImporter":16}],7:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { 'default': obj };
 }
-var _snapsvg = typeof window !== 'undefined' ? window['Snap'] : typeof global !== 'undefined' ? global['Snap'] : null;
-var _snapsvg2 = _interopRequireDefault(_snapsvg);
+var _snapsvgImporter = require('../snapsvgImporter');
+var _snapsvgImporter2 = _interopRequireDefault(_snapsvgImporter);
 var _menuFactory = require('../menuFactory');
 var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         svg: {
-            lib: _snapsvg2['default'],
+            lib: _snapsvgImporter2['default'],
             pathInitial: 'M-1,0h101c0,0-97.833,153.603-97.833,396.167C2.167,627.579,100,800,100,800H-1V0z',
             pathOpen: 'M-1,0h101c0,0,0-1,0,395c0,404,0,405,0,405H-1V0z',
             animate: function animate(path) {
@@ -613,8 +607,7 @@ var styles = {
     };
 exports['default'] = (0, _menuFactory2['default'])(styles);
 module.exports = exports['default'];
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../menuFactory":5}],8:[function(require,module,exports){
+},{"../menuFactory":5,"../snapsvgImporter":16}],8:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 function _interopRequireDefault(obj) {
@@ -808,5 +801,19 @@ var styles = {
     };
 exports['default'] = (0, _menuFactory2['default'])(styles);
 module.exports = exports['default'];
-},{"../menuFactory":5}]},{},[2])(2)
+},{"../menuFactory":5}],16:[function(require,module,exports){
+(function (global){
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+exports['default'] = function () {
+    var Snap = undefined;
+    try {
+        Snap = typeof window !== 'undefined' ? window['Snap'] : typeof global !== 'undefined' ? global['Snap'] : null;
+    } finally {
+        return Snap;
+    }
+};
+module.exports = exports['default'];
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}]},{},[2])(2)
 });
