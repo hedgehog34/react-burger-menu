@@ -1,6 +1,6 @@
 {
   "name": "react-burger-menu",
-  "version": "1.9.7",
+  "version": "1.0.10",
   "description": "An off-canvas sidebar component with a collection of effects and styles using CSS transitions and SVG path animations",
   "main": "lib/BurgerMenu.js",
   "author": "Imogen Wentworth",
@@ -52,6 +52,7 @@
   },
   "scripts": {
     "build": "gulp clean && NODE_ENV=production gulp build",
+    "build_windows": "set NODE_ENV=production&&gulp clean && gulp build",
     "examples": "gulp dev:server",
     "lint": "eslint ./; true",
     "publish:site": "gulp publish:examples",
