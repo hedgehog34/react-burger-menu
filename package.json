@@ -1,6 +1,6 @@
 {
   "name": "react-burger-menu-accountz",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "An off-canvas sidebar component with a collection of effects and styles using CSS transitions and SVG path animations",
   "main": "lib/BurgerMenu.js",
   "author": "Robert Jezyk",
@@ -49,7 +49,7 @@
     "snapsvg": "global:Snap"
   },
   "scripts": {
-    "build": "gulp clean && NODE_ENV=production gulp build",
+    "build": "gulp clean && gulp build",
     "examples": "gulp dev:server",
     "lint": "eslint ./; true",
     "publish:site": "gulp publish:examples",

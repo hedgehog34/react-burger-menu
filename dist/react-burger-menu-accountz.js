@@ -45,7 +45,7 @@ var BurgerIcon = (0, _radium2['default'])(_react2['default'].createClass({
                     padding: 0,
                     border: 'none',
                     fontSize: 12,
-                    color: 'transparent',
+                    textIndent: '-9999px',
                     background: 'transparent',
                     outline: 'none'
                 };
@@ -89,6 +89,7 @@ var BurgerIcon = (0, _radium2['default'])(_react2['default'].createClass({
                     this.props.styles.bmBurgerButton
                 ]
             }, icon, _react2['default'].createElement('button', {
+                className: 'bm-burger-button__button',
                 onClick: this.props.onClick,
                 onMouseEnter: this.handleHover,
                 onMouseLeave: this.handleHover,
@@ -108,13 +109,14 @@ exports['default'] = {
     elastic: require('./menus/elastic'),
     bubble: require('./menus/bubble'),
     push: require('./menus/push'),
+    squeeze: require('./menus/squeeze'),
     pushRotate: require('./menus/pushRotate'),
     scaleDown: require('./menus/scaleDown'),
     scaleRotate: require('./menus/scaleRotate'),
     fallDown: require('./menus/fallDown')
 };
 module.exports = exports['default'];
-},{"./menus/bubble":6,"./menus/elastic":7,"./menus/fallDown":8,"./menus/push":9,"./menus/pushRotate":10,"./menus/scaleDown":11,"./menus/scaleRotate":12,"./menus/slide":13,"./menus/stack":14}],3:[function(require,module,exports){
+},{"./menus/bubble":6,"./menus/elastic":7,"./menus/fallDown":8,"./menus/push":9,"./menus/pushRotate":10,"./menus/scaleDown":11,"./menus/scaleRotate":12,"./menus/slide":13,"./menus/squeeze":14,"./menus/stack":15}],3:[function(require,module,exports){
 (function (global){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -295,7 +297,8 @@ exports['default'] = function (styles) {
             pageWrapId: styles && styles.pageWrap ? _react2['default'].PropTypes.string.isRequired : _react2['default'].PropTypes.string,
             right: _react2['default'].PropTypes.bool,
             styles: _react2['default'].PropTypes.object,
-            width: _react2['default'].PropTypes.number
+            width: _react2['default'].PropTypes.number,
+            breakpoint: _react2['default'].PropTypes.number
         },
         toggleMenu: function toggleMenu() {
             this.applyWrapperStyles();
@@ -323,10 +326,12 @@ exports['default'] = function (styles) {
             var body = document.querySelector('body');
             var wrapper = document.getElementById(id);
             if (!wrapper) {
-                console.error('Element with ID \'' + id + '\' not found');
+                if (!this.state.isOpen) {
+                    console.error('Element with ID \'' + id + '\' not found');
+                }
                 return;
             }
-            var builtStyles = wrapperStyles(this.state.isOpen, this.props.width, this.props.right);
+            var builtStyles = wrapperStyles(this.state.isOpen, this.props.width, this.props.right, this.props.breakpoint);
             for (var prop in builtStyles) {
                 if (builtStyles.hasOwnProperty(prop)) {
                     wrapper.style[prop] = set ? builtStyles[prop] : '';
@@ -365,11 +370,13 @@ exports['default'] = function (styles) {
                 outerContainerId: '',
                 pageWrapId: '',
                 styles: {},
-                width: 300
+                width: 300,
+                breakpoint: 960
             };
         },
         getInitialState: function getInitialState() {
-            return { isOpen: false };
+            var initialIsOpenProp = this.props && typeof this.props.isOpen !== 'undefined';
+            return { isOpen: initialIsOpenProp ? this.props.isOpen : false };
         },
         componentWillMount: function componentWillMount() {
             if (!styles) {
@@ -381,6 +388,9 @@ exports['default'] = function (styles) {
         },
         componentDidMount: function componentDidMount() {
             window.onkeydown = this.listenForClose;
+            if (this.props.isOpen) {
+                this.toggleMenu();
+            }
         },
         componentWillUnmount: function componentWillUnmount() {
             window.onkeydown = null;
@@ -391,10 +401,9 @@ exports['default'] = function (styles) {
             if (styles.svg && this.isMounted()) {
                 var _ret = function () {
                         var morphShape = _reactDom2['default'].findDOMNode(_this, 'bm-morph-shape');
-                        var Snap = undefined, s = undefined, path = undefined;
+                        var s = undefined, path = undefined;
                         try {
-                            Snap = typeof window !== 'undefined' ? window['Snap'] : typeof global !== 'undefined' ? global['Snap'] : null;
-                            s = Snap(morphShape);
+                            s = styles.svg.lib(morphShape);
                             path = s.select('path');
                         } catch (e) {
                             console.warn('It looks like you might be using Webpack. Unfortunately, Elastic and Bubble are not currently supported with Webpack builds due to their Snap.svg dependency. See https://github.com/adobe-webplatform/Snap.svg/issues/341 for more info.');
@@ -463,15 +472,19 @@ exports['default'] = function (styles) {
 module.exports = exports['default'];
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./BurgerIcon":1,"./CrossIcon":3,"./baseStyles":4}],6:[function(require,module,exports){
+(function (global){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { 'default': obj };
 }
+var _snapsvg = typeof window !== 'undefined' ? window['Snap'] : typeof global !== 'undefined' ? global['Snap'] : null;
+var _snapsvg2 = _interopRequireDefault(_snapsvg);
 var _menuFactory = require('../menuFactory');
 var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         svg: {
+            lib: _snapsvg2['default'],
             pathInitial: 'M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z',
             pathOpen: 'M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z',
             animate: function animate(path) {
@@ -534,16 +547,21 @@ var styles = {
     };
 exports['default'] = (0, _menuFactory2['default'])(styles);
 module.exports = exports['default'];
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../menuFactory":5}],7:[function(require,module,exports){
+(function (global){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { 'default': obj };
 }
+var _snapsvg = typeof window !== 'undefined' ? window['Snap'] : typeof global !== 'undefined' ? global['Snap'] : null;
+var _snapsvg2 = _interopRequireDefault(_snapsvg);
 var _menuFactory = require('../menuFactory');
 var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         svg: {
+            lib: _snapsvg2['default'],
             pathInitial: 'M-1,0h101c0,0-97.833,153.603-97.833,396.167C2.167,627.579,100,800,100,800H-1V0z',
             pathOpen: 'M-1,0h101c0,0,0-1,0,395c0,404,0,405,0,405H-1V0z',
             animate: function animate(path) {
@@ -595,6 +613,7 @@ var styles = {
     };
 exports['default'] = (0, _menuFactory2['default'])(styles);
 module.exports = exports['default'];
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../menuFactory":5}],8:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -734,6 +753,37 @@ var styles = {};
 exports['default'] = (0, _menuFactory2['default'])(styles);
 module.exports = exports['default'];
 },{"../menuFactory":5}],14:[function(require,module,exports){
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { 'default': obj };
+}
+var _menuFactory = require('../menuFactory');
+var _menuFactory2 = _interopRequireDefault(_menuFactory);
+var styles = {
+        pageWrap: function pageWrap(isOpen, width, right, breakpoint) {
+            if (window.innerWidth < breakpoint) {
+                return {
+                    transform: isOpen ? '' : right ? 'translate3d(-' + width + 'px, 0, 0)' : 'translate3d(' + width + 'px, 0, 0)',
+                    transition: 'transform 0.5s'
+                };
+            }
+            return {
+                width: isOpen ? '100%' : 'calc(100% - ' + width + 'px)',
+                position: 'absolute',
+                right: right ? 'initial' : '0',
+                left: right ? '0' : 'initial',
+                top: '0',
+                transition: 'width 0.5s'
+            };
+        },
+        outerContainer: function outerContainer(isOpen) {
+            return { overflow: isOpen ? '' : 'hidden' };
+        }
+    };
+exports['default'] = (0, _menuFactory2['default'])(styles);
+module.exports = exports['default'];
+},{"../menuFactory":5}],15:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 function _interopRequireDefault(obj) {
