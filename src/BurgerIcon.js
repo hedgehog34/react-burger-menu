@@ -22,11 +22,11 @@ const BurgerIcon = Radium(React.createClass({
   },
 
   handleHover() {
-    this.setState({ hover: !this.state.hover });
+    this.setState({hover: !this.state.hover});
   },
 
   getInitialState() {
-    return { hover: false };
+    return {hover: false};
   },
 
   getDefaultProps() {
@@ -60,9 +60,9 @@ const BurgerIcon = Radium(React.createClass({
     } else {
       icon = (
         <span>
-          <span className="bm-burger-bars" style={ [this.getLineStyle(0), this.props.styles.bmBurgerBars] }></span>
-          <span className="bm-burger-bars" style={ [this.getLineStyle(1), this.props.styles.bmBurgerBars] }></span>
-          <span className="bm-burger-bars" style={ [this.getLineStyle(2), this.props.styles.bmBurgerBars] }></span>
+          <span className="bm-burger-bars" style={[this.getLineStyle(0), this.props.styles.bmBurgerBars]}></span>
+          <span className="bm-burger-bars" style={[this.getLineStyle(1), this.props.styles.bmBurgerBars]}></span>
+          <span className="bm-burger-bars" style={[this.getLineStyle(2), this.props.styles.bmBurgerBars]}></span>
         </span>
       );
     }
@@ -71,10 +71,10 @@ const BurgerIcon = Radium(React.createClass({
       <div className="bm-burger-button" style={ [{ zIndex: 1 }, this.props.styles.bmBurgerButton] }>
         { icon }
         <button className="bm-burger-button__button" 
-		  onClick={ this.props.onClick }
-          onMouseEnter={ this.handleHover }
-          onMouseLeave={ this.handleHover }
-          style={ buttonStyle }>
+        <button onClick={this.props.onClick}
+          onMouseEnter={this.handleHover}
+          onMouseLeave={this.handleHover}
+          style={buttonStyle}>
           Open Menu
         </button>
       </div>
