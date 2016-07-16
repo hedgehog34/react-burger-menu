@@ -104,7 +104,7 @@ let Demo = React.createClass({
     } else {
       jsx = (
         <MenuWrap wait={ 20 }>
-          <Menu id={ this.state.currentMenu } pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }>
+          <Menu id={ this.state.currentMenu } pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } isOpen>
             { items }
           </Menu>
         </MenuWrap>
@@ -116,7 +116,7 @@ let Demo = React.createClass({
 
   getInitialState() {
     return {
-      currentMenu: 'push',
+      currentMenu: 'squeeze',
       side: 'left'
     };
   },
