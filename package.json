@@ -25,6 +25,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-register": "^6.3.13",
     "chai": "^3.2.0",
+    "cross-env": "^2.0.0",
     "eslint": "^3.0.0",
     "eslint-plugin-react": "^5.0.1",
     "gulp": "^3.8.11",
@@ -52,7 +53,7 @@
     "snapsvg": "global:Snap"
   },
   "scripts": {
-    "build": "gulp clean && NODE_ENV=production gulp build",
+    "build": "cross-env NODE_ENV=production gulp clean && gulp build",
     "examples": "gulp dev:server",
     "lint": "eslint ./; true",
     "publish:site": "gulp publish:examples",
