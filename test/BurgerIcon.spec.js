@@ -108,14 +108,6 @@ describe('BurgerIcon component', () => {
       expect(button.innerHTML).to.equal('Open Menu');
     });
 
-    it('responds to hover events', () => {
-      const button = TestUtils.findRenderedDOMComponentWithTag(component, 'button');
-      TestUtils.SimulateNative.mouseOver(button);
-      expect(component.state.hover).to.be.true;
-      TestUtils.SimulateNative.mouseOut(button);
-      expect(component.state.hover).to.be.false;
-    });
-
     it('behaves correctly when clicked', () => {
       let clickHandled = false;
       function handleClick() { clickHandled = true; }

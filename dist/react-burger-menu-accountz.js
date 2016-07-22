@@ -82,6 +82,7 @@ var BurgerIcon = (0, _radium2['default'])(_react2['default'].createClass({
                 }));
             }
             return _react2['default'].createElement('div', {
+                onClick: this.props.onClick,
                 className: 'bm-burger-button',
                 style: [
                     { zIndex: 1 },
@@ -89,9 +90,6 @@ var BurgerIcon = (0, _radium2['default'])(_react2['default'].createClass({
                 ]
             }, icon, _react2['default'].createElement('button', {
                 className: 'bm-burger-button__button',
-                onClick: this.props.onClick,
-                onMouseEnter: this.handleHover,
-                onMouseLeave: this.handleHover,
                 style: buttonStyle
             }, 'Open Menu'));
         }
