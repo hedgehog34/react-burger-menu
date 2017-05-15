@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import baseStyles from './baseStyles';
 import BurgerIcon from './BurgerIcon';
@@ -12,18 +13,18 @@ export default (styles) => {
   return Radium(React.createClass({
 
     propTypes: {
-      customBurgerIcon: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.oneOf([false])]),
-      customCrossIcon: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.oneOf([false])]),
-      id: React.PropTypes.string,
-      isOpen: React.PropTypes.bool,
-      noOverlay: React.PropTypes.bool,
-      onStateChange: React.PropTypes.func,
-      outerContainerId: styles && styles.outerContainer ? React.PropTypes.string.isRequired : React.PropTypes.string,
-      pageWrapId: styles && styles.pageWrap ? React.PropTypes.string.isRequired : React.PropTypes.string,
-      right: React.PropTypes.bool,
-      styles: React.PropTypes.object,
-      width: React.PropTypes.number,
-	  breakpoint: React.PropTypes.number
+	    breakpoint: PropTypes.number,
+      customBurgerIcon: PropTypes.oneOfType([PropTypes.element, PropTypes.oneOf([false])]),
+      customCrossIcon: PropTypes.oneOfType([PropTypes.element, PropTypes.oneOf([false])]),
+      id: PropTypes.string,
+      isOpen: PropTypes.bool,
+      noOverlay: PropTypes.bool,
+      onStateChange: PropTypes.func,
+      outerContainerId: styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string,
+      pageWrapId: styles && styles.pageWrap ? PropTypes.string.isRequired : PropTypes.string,
+      right: PropTypes.bool,
+      styles: PropTypes.object,
+      width: PropTypes.number,
     },
 
     toggleMenu() {
