@@ -1,15 +1,15 @@
 'use strict';
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Radium from 'radium';
 
-const BurgerIcon = Radium(React.createClass({
-
-  propTypes: {
-    customIcon: PropTypes.element,
-    styles: PropTypes.object
-  },
+export default class BurgerIcon extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      hover: false
+    };
+  }
 
   getLineStyle(index) {
     return {
@@ -20,21 +20,11 @@ const BurgerIcon = Radium(React.createClass({
       top: 20 * (index * 2) + '%',
       opacity: this.state.hover ? 0.6 : 1
     };
-  },
+  }
 
   handleHover() {
     this.setState({hover: !this.state.hover});
-  },
-
-  getInitialState() {
-    return {hover: false};
-  },
-
-  getDefaultProps() {
-    return {
-      styles: {}
-    };
-  },
+  }
 
   render() {
     let icon;
@@ -55,32 +45,39 @@ const BurgerIcon = Radium(React.createClass({
     if (this.props.customIcon) {
       let extraProps = {
         className: 'bm-icon',
-        style: [{width: '100%', height: '100%'}, this.props.styles.bmIcon]
+        style: {...{width: '100%', height: '100%'}, ...this.props.styles.bmIcon}
       };
       icon = React.cloneElement(this.props.customIcon, extraProps);
     } else {
       icon = (
         <span>
-          <span className="bm-burger-bars" style={[this.getLineStyle(0), this.props.styles.bmBurgerBars]}></span>
-          <span className="bm-burger-bars" style={[this.getLineStyle(1), this.props.styles.bmBurgerBars]}></span>
-          <span className="bm-burger-bars" style={[this.getLineStyle(2), this.props.styles.bmBurgerBars]}></span>
+          <span className="bm-burger-bars" style={{...this.getLineStyle(0), ...this.props.styles.bmBurgerBars}} />
+          <span className="bm-burger-bars" style={{...this.getLineStyle(1), ...this.props.styles.bmBurgerBars}} />
+          <span className="bm-burger-bars" style={{...this.getLineStyle(2), ...this.props.styles.bmBurgerBars}} />
         </span>
       );
     }
 
     return (
-      <div className="bm-burger-button" style={ [{ zIndex: 1 }, this.props.styles.bmBurgerButton] }>
-        { icon }
-        <button className="bm-burger-button__button" 
-        	onClick={this.props.onClick}
-          onMouseEnter={this.handleHover}
-          onMouseLeave={this.handleHover}
-          style={buttonStyle}>
+      <div className="bm-burger-button" style={{...{zIndex: 1}, ...this.props.styles.bmBurgerButton}}>
+        {icon}
+        <button className="bm-burger-button__button"
+                onClick={this.props.onClick}
+                onMouseEnter={() => this.handleHover()}
+                onMouseLeave={() => this.handleHover()}
+                style={buttonStyle}>
           Open Menu
         </button>
       </div>
     );
   }
-}));
+}
 
-export default BurgerIcon;
+BurgerIcon.propTypes = {
+  customIcon: PropTypes.element,
+  styles: PropTypes.object
+};
+
+BurgerIcon.defaultProps = {
+  styles: {}
+};
