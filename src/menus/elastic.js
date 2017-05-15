@@ -21,12 +21,20 @@ const styles = {
       height: '100%',
       right: right ? 'inherit' : 0,
       left: right ? 0 : 'inherit',
+      MozTransform: right ? 'rotateY(180deg)' : '',
+      MsTransform: right ? 'rotateY(180deg)' : '',
+      OTransform: right ? 'rotateY(180deg)' : '',
+      WebkitTransform: right ? 'rotateY(180deg)' : '',
       transform: right ? 'rotateY(180deg)' : ''
     };
   },
 
   menuWrap(isOpen, width, right) {
     return {
+      MozTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
+      MsTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
+      OTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
+      WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
       transform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
       transition: 'all 0.3s'
     };
@@ -38,7 +46,8 @@ const styles = {
       right: right ? 0 : 'inherit',
       width: 'calc(100% - 120px)',
       whiteSpace: 'nowrap',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
+      overflow: 'visible',
     };
   },
 
@@ -46,13 +55,19 @@ const styles = {
     if (right) {
       return {
         position: 'relative',
-        left: '-110px'
+        left: '-110px',
+        width: '170%',
+        overflow: 'auto',
       };
     }
   },
 
   pageWrap(isOpen, width, right) {
     return {
+      MozTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
+      MsTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
+      OTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
+      WebkitTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
       transform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
       transition: isOpen ? 'all 0.3s' : 'all 0.3s 0.1s'
     };

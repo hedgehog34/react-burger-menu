@@ -1415,8 +1415,90 @@ module.exports = exports['default'];
 (function (global){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
+var _extends = Object.assign || function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+            var source = arguments[i];
+            for (var key in source) {
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+        return target;
+    };
+var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ('value' in descriptor)
+                    descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps)
+                defineProperties(Constructor.prototype, protoProps);
+            if (staticProps)
+                defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+var _get = function get(_x, _x2, _x3) {
+    var _again = true;
+    _function:
+        while (_again) {
+            var object = _x, property = _x2, receiver = _x3;
+            _again = false;
+            if (object === null)
+                object = Function.prototype;
+            var desc = Object.getOwnPropertyDescriptor(object, property);
+            if (desc === undefined) {
+                var parent = Object.getPrototypeOf(object);
+                if (parent === null) {
+                    return undefined;
+                } else {
+                    _x = parent;
+                    _x2 = property;
+                    _x3 = receiver;
+                    _again = true;
+                    desc = parent = undefined;
+                    continue _function;
+                }
+            } else if ('value' in desc) {
+                return desc.value;
+            } else {
+                var getter = desc.get;
+                if (getter === undefined) {
+                    return undefined;
+                }
+                return getter.call(receiver);
+            }
+        }
+};
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { 'default': obj };
+}
+function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError('Cannot call a class as a function');
+    }
+}
+function _inherits(subClass, superClass) {
+    if (typeof superClass !== 'function' && superClass !== null) {
+        throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass)
+        Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 var _react = typeof window !== 'undefined' ? window['React'] : typeof global !== 'undefined' ? global['React'] : null;
 var _react2 = _interopRequireDefault(_react);
@@ -1424,8 +1506,6 @@ var _reactDom = typeof window !== 'undefined' ? window['ReactDOM'] : typeof glob
 var _reactDom2 = _interopRequireDefault(_reactDom);
 var _propTypes = require('prop-types');
 var _propTypes2 = _interopRequireDefault(_propTypes);
-var _radium = typeof window !== 'undefined' ? window['Radium'] : typeof global !== 'undefined' ? global['Radium'] : null;
-var _radium2 = _interopRequireDefault(_radium);
 var _baseStyles = require('./baseStyles');
 var _baseStyles2 = _interopRequireDefault(_baseStyles);
 var _BurgerIcon = require('./BurgerIcon');
@@ -1433,192 +1513,255 @@ var _BurgerIcon2 = _interopRequireDefault(_BurgerIcon);
 var _CrossIcon = require('./CrossIcon');
 var _CrossIcon2 = _interopRequireDefault(_CrossIcon);
 exports['default'] = function (styles) {
-    return (0, _radium2['default'])(_react2['default'].createClass({
-        propTypes: {
-            breakpoint: _propTypes2['default'].number,
-            customBurgerIcon: _propTypes2['default'].oneOfType([
-                _propTypes2['default'].element,
-                _propTypes2['default'].oneOf([false])
-            ]),
-            customCrossIcon: _propTypes2['default'].oneOfType([
-                _propTypes2['default'].element,
-                _propTypes2['default'].oneOf([false])
-            ]),
-            id: _propTypes2['default'].string,
-            isOpen: _propTypes2['default'].bool,
-            noOverlay: _propTypes2['default'].bool,
-            onStateChange: _propTypes2['default'].func,
-            outerContainerId: styles && styles.outerContainer ? _propTypes2['default'].string.isRequired : _propTypes2['default'].string,
-            pageWrapId: styles && styles.pageWrap ? _propTypes2['default'].string.isRequired : _propTypes2['default'].string,
-            right: _propTypes2['default'].bool,
-            styles: _propTypes2['default'].object,
-            width: _propTypes2['default'].number
-        },
-        toggleMenu: function toggleMenu() {
-            this.applyWrapperStyles();
-            var newState = { isOpen: !this.state.isOpen };
-            this.setState(newState, this.props.onStateChange.bind(null, newState));
-        },
-        applyWrapperStyles: function applyWrapperStyles() {
-            if (styles.pageWrap && this.props.pageWrapId) {
-                this.handleExternalWrapper(this.props.pageWrapId, styles.pageWrap, true);
+    var Menu = function (_Component) {
+            _inherits(Menu, _Component);
+            function Menu(props) {
+                _classCallCheck(this, Menu);
+                _get(Object.getPrototypeOf(Menu.prototype), 'constructor', this).call(this, props);
+                this.state = { isOpen: props && typeof props.isOpen !== 'undefined' ? props.isOpen : false };
             }
-            if (styles.outerContainer && this.props.outerContainerId) {
-                this.handleExternalWrapper(this.props.outerContainerId, styles.outerContainer, true);
-            }
-        },
-        clearWrapperStyles: function clearWrapperStyles() {
-            if (styles.pageWrap && this.props.pageWrapId) {
-                this.handleExternalWrapper(this.props.pageWrapId, styles.pageWrap, false);
-            }
-            if (styles.outerContainer && this.props.outerContainerId) {
-                this.handleExternalWrapper(this.props.outerContainerId, styles.outerContainer, false);
-            }
-        },
-        handleExternalWrapper: function handleExternalWrapper(id, wrapperStyles, set) {
-            var html = document.querySelector('html');
-            var body = document.querySelector('body');
-            var wrapper = document.getElementById(id);
-            if (!wrapper) {
-                console.error('Element with ID \'' + id + '\' not found');
-                return;
-            }
-            var builtStyles = wrapperStyles(this.state.isOpen, this.props.width, this.props.right, this.props.breakpoint);
-            for (var prop in builtStyles) {
-                if (builtStyles.hasOwnProperty(prop)) {
-                    wrapper.style[prop] = set ? builtStyles[prop] : '';
-                }
-            }
-            [
-                html,
-                body
-            ].forEach(function (element) {
-                element.style['overflow-x'] = set ? 'hidden' : '';
-            });
-        },
-        getStyles: function getStyles(el, index) {
-            var propName = 'bm' + el.replace(el.charAt(0), el.charAt(0).toUpperCase());
-            var output = _baseStyles2['default'][el] ? [_baseStyles2['default'][el](this.state.isOpen, this.props.width, this.props.right)] : [];
-            if (styles[el]) {
-                output.push(styles[el](this.state.isOpen, this.props.width, this.props.right, index + 1));
-            }
-            if (this.props.styles[propName]) {
-                output.push(this.props.styles[propName]);
-            }
-            return output;
-        },
-        listenForClose: function listenForClose(e) {
-            e = e || window.event;
-            if (this.state.isOpen && (e.key === 'Escape' || e.keyCode === 27)) {
-                this.toggleMenu();
-            }
-        },
-        getDefaultProps: function getDefaultProps() {
-            return {
-                id: '',
-                noOverlay: false,
-                onStateChange: function onStateChange() {
+            _createClass(Menu, [
+                {
+                    key: 'toggleMenu',
+                    value: function toggleMenu() {
+                        var _this = this;
+                        var newState = { isOpen: !this.state.isOpen };
+                        this.applyWrapperStyles();
+                        this.setState(newState, function () {
+                            _this.props.onStateChange(newState);
+                            _this.timeoutId && clearTimeout(_this.timeoutId);
+                            _this.timeoutId = setTimeout(function () {
+                                _this.timeoutId = null;
+                                if (!newState.isOpen) {
+                                    _this.clearWrapperStyles();
+                                }
+                            }, 500);
+                        });
+                    }
                 },
-                outerContainerId: '',
-                pageWrapId: '',
-                styles: {},
-                width: 300,
-                breakpoint: 960
-            };
-        },
-        getInitialState: function getInitialState() {
-            var initialIsOpenProp = this.props && typeof this.props.isOpen !== 'undefined';
-            return { isOpen: initialIsOpenProp ? this.props.isOpen : false };
-        },
-        componentWillMount: function componentWillMount() {
-            if (!styles) {
-                throw new Error('No styles supplied');
-            }
-            if (this.props.isOpen) {
-                this.toggleMenu();
-            }
-        },
-        componentDidMount: function componentDidMount() {
-            window.onkeydown = this.listenForClose;
-            if (this.props.isOpen) {
-                this.toggleMenu();
-            }
-        },
-        componentWillUnmount: function componentWillUnmount() {
-            window.onkeydown = null;
-            this.clearWrapperStyles();
-        },
-        componentDidUpdate: function componentDidUpdate() {
-            var _this = this;
-            if (styles.svg && this.isMounted()) {
-                var _ret = function () {
-                        var morphShape = _reactDom2['default'].findDOMNode(_this, 'bm-morph-shape');
-                        var s = undefined, path = undefined;
-                        try {
-                            s = styles.svg.lib(morphShape);
-                            path = s.select('path');
-                        } catch (e) {
-                            console.warn('It looks like you might be using Webpack. Unfortunately, Elastic and Bubble are not currently supported with Webpack builds due to their Snap.svg dependency. See https://github.com/adobe-webplatform/Snap.svg/issues/341 for more info.');
-                            return { v: undefined };
+                {
+                    key: 'applyWrapperStyles',
+                    value: function applyWrapperStyles() {
+                        if (styles.pageWrap && this.props.pageWrapId) {
+                            this.handleExternalWrapper(this.props.pageWrapId, styles.pageWrap, true);
                         }
-                        if (_this.state.isOpen) {
-                            styles.svg.animate(path);
-                        } else {
-                            setTimeout(function () {
-                                path.attr('d', styles.svg.pathInitial);
-                            }, 300);
+                        if (styles.outerContainer && this.props.outerContainerId) {
+                            this.handleExternalWrapper(this.props.outerContainerId, styles.outerContainer, true);
                         }
-                    }();
-                if (typeof _ret === 'object')
-                    return _ret.v;
-            }
+                    }
+                },
+                {
+                    key: 'clearWrapperStyles',
+                    value: function clearWrapperStyles() {
+                        if (styles.pageWrap && this.props.pageWrapId) {
+                            this.handleExternalWrapper(this.props.pageWrapId, styles.pageWrap, false);
+                        }
+                        if (styles.outerContainer && this.props.outerContainerId) {
+                            this.handleExternalWrapper(this.props.outerContainerId, styles.outerContainer, false);
+                        }
+                    }
+                },
+                {
+                    key: 'handleExternalWrapper',
+                    value: function handleExternalWrapper(id, wrapperStyles, set) {
+                        var html = document.querySelector('html');
+                        var body = document.querySelector('body');
+                        var wrapper = document.getElementById(id);
+                        if (!wrapper) {
+                            console.error('Element with ID \'' + id + '\' not found');
+                            return;
+                        }
+                        var builtStyles = this.getStyle(wrapperStyles);
+                        for (var prop in builtStyles) {
+                            if (builtStyles.hasOwnProperty(prop)) {
+                                wrapper.style[prop] = set ? builtStyles[prop] : '';
+                            }
+                        }
+                        [
+                            html,
+                            body
+                        ].forEach(function (element) {
+                            element.style['overflow-x'] = set ? 'hidden' : '';
+                        });
+                    }
+                },
+                {
+                    key: 'getStyles',
+                    value: function getStyles(el, index, inline) {
+                        var propName = 'bm' + el.replace(el.charAt(0), el.charAt(0).toUpperCase());
+                        var output = _baseStyles2['default'][el] ? this.getStyle(_baseStyles2['default'][el]) : {};
+                        if (styles[el]) {
+                            output = _extends({}, output, this.getStyle(styles[el], index + 1));
+                        }
+                        if (this.props.styles[propName]) {
+                            output = _extends({}, output, this.props.styles[propName]);
+                        }
+                        if (inline) {
+                            output = _extends({}, output, inline);
+                        }
+                        return output;
+                    }
+                },
+                {
+                    key: 'getStyle',
+                    value: function getStyle(style, index) {
+                        var width = this.props.width;
+                        return style(this.state.isOpen, width, this.props.right, this.props.breakpoint, index);
+                    }
+                },
+                {
+                    key: 'listenForClose',
+                    value: function listenForClose(e) {
+                        e = e || window.event;
+                        if (this.state.isOpen && (e.key === 'Escape' || e.keyCode === 27)) {
+                            this.toggleMenu();
+                        }
+                    }
+                },
+                {
+                    key: 'componentWillMount',
+                    value: function componentWillMount() {
+                        if (!styles) {
+                            throw new Error('No styles supplied');
+                        }
+                        if (this.props.isOpen) {
+                            this.toggleMenu();
+                        }
+                    }
+                },
+                {
+                    key: 'componentDidMount',
+                    value: function componentDidMount() {
+                        window.onkeydown = this.listenForClose.bind(this);
+                        if (this.props.isOpen) {
+                            this.toggleMenu();
+                        }
+                    }
+                },
+                {
+                    key: 'componentWillUnmount',
+                    value: function componentWillUnmount() {
+                        window.onkeydown = null;
+                        this.clearWrapperStyles();
+                    }
+                },
+                {
+                    key: 'componentDidUpdate',
+                    value: function componentDidUpdate() {
+                        var _this2 = this;
+                        if (styles.svg) {
+                            (function () {
+                                var morphShape = _reactDom2['default'].findDOMNode(_this2, 'bm-morph-shape');
+                                var path = styles.svg.lib(morphShape).select('path');
+                                if (_this2.state.isOpen) {
+                                    styles.svg.animate(path);
+                                } else {
+                                    setTimeout(function () {
+                                        path.attr('d', styles.svg.pathInitial);
+                                    }, 300);
+                                }
+                            }());
+                        }
+                    }
+                },
+                {
+                    key: 'componentWillReceiveProps',
+                    value: function componentWillReceiveProps(nextProps) {
+                        if (typeof nextProps.isOpen !== 'undefined' && nextProps.isOpen !== this.state.isOpen) {
+                            this.toggleMenu();
+                        }
+                    }
+                },
+                {
+                    key: 'render',
+                    value: function render() {
+                        var _this3 = this;
+                        return _react2['default'].createElement('div', null, !this.props.noOverlay ? _react2['default'].createElement('div', {
+                            className: 'bm-overlay',
+                            onClick: function () {
+                                return _this3.toggleMenu();
+                            },
+                            style: this.getStyles('overlay')
+                        }) : null, _react2['default'].createElement('div', {
+                            id: this.props.id,
+                            className: 'bm-menu-wrap ' + (this.props.className || ''),
+                            style: this.getStyles('menuWrap')
+                        }, styles.svg ? _react2['default'].createElement('div', {
+                            className: 'bm-morph-shape',
+                            style: this.getStyles('morphShape')
+                        }, _react2['default'].createElement('svg', {
+                            width: '100%',
+                            height: '100%',
+                            viewBox: '0 0 100 800',
+                            preserveAspectRatio: 'none'
+                        }, _react2['default'].createElement('path', { d: styles.svg.pathInitial }))) : null, _react2['default'].createElement('div', {
+                            className: 'bm-menu',
+                            style: this.getStyles('menu')
+                        }, _react2['default'].createElement('nav', {
+                            className: 'bm-item-list',
+                            style: this.getStyles('itemList')
+                        }, _react2['default'].Children.map(this.props.children, function (item, index) {
+                            if (item) {
+                                var extraProps = {
+                                        key: index,
+                                        style: _this3.getStyles('item', index, item.props.style)
+                                    };
+                                return _react2['default'].cloneElement(item, extraProps);
+                            }
+                        }))), this.props.customCrossIcon !== false ? _react2['default'].createElement('div', { style: this.getStyles('closeButton') }, _react2['default'].createElement(_CrossIcon2['default'], {
+                            onClick: function () {
+                                return _this3.toggleMenu();
+                            },
+                            styles: this.props.styles,
+                            customIcon: this.props.customCrossIcon
+                        })) : null), this.props.customBurgerIcon !== false ? _react2['default'].createElement(_BurgerIcon2['default'], {
+                            onClick: function () {
+                                return _this3.toggleMenu();
+                            },
+                            styles: this.props.styles,
+                            customIcon: this.props.customBurgerIcon
+                        }) : null);
+                    }
+                }
+            ]);
+            return Menu;
+        }(_react.Component);
+    Menu.propTypes = {
+        breakpoint: _propTypes2['default'].number,
+        className: _propTypes2['default'].string,
+        customBurgerIcon: _propTypes2['default'].oneOfType([
+            _propTypes2['default'].element,
+            _propTypes2['default'].oneOf([false])
+        ]),
+        customCrossIcon: _propTypes2['default'].oneOfType([
+            _propTypes2['default'].element,
+            _propTypes2['default'].oneOf([false])
+        ]),
+        id: _propTypes2['default'].string,
+        isOpen: _propTypes2['default'].bool,
+        noOverlay: _propTypes2['default'].bool,
+        onStateChange: _propTypes2['default'].func,
+        outerContainerId: styles && styles.outerContainer ? _propTypes2['default'].string.isRequired : _propTypes2['default'].string,
+        pageWrapId: styles && styles.pageWrap ? _propTypes2['default'].string.isRequired : _propTypes2['default'].string,
+        right: _propTypes2['default'].bool,
+        styles: _propTypes2['default'].object,
+        width: _propTypes2['default'].oneOfType([
+            _propTypes2['default'].number,
+            _propTypes2['default'].string
+        ])
+    };
+    Menu.defaultProps = {
+        breakpoint: 960,
+        id: '',
+        noOverlay: false,
+        onStateChange: function onStateChange() {
         },
-        componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-            if (typeof nextProps.isOpen !== 'undefined' && nextProps.isOpen !== this.state.isOpen) {
-                this.toggleMenu();
-            }
-        },
-        render: function render() {
-            var _this2 = this;
-            return _react2['default'].createElement('div', null, !this.props.noOverlay ? _react2['default'].createElement('div', {
-                className: 'bm-overlay',
-                onClick: this.toggleMenu,
-                style: this.getStyles('overlay')
-            }) : null, _react2['default'].createElement('div', {
-                id: this.props.id,
-                className: 'bm-menu-wrap',
-                style: this.getStyles('menuWrap')
-            }, styles.svg ? _react2['default'].createElement('div', {
-                className: 'bm-morph-shape',
-                style: this.getStyles('morphShape')
-            }, _react2['default'].createElement('svg', {
-                width: '100%',
-                height: '100%',
-                viewBox: '0 0 100 800',
-                preserveAspectRatio: 'none'
-            }, _react2['default'].createElement('path', { d: styles.svg.pathInitial }))) : null, _react2['default'].createElement('div', {
-                className: 'bm-menu',
-                style: this.getStyles('menu')
-            }, _react2['default'].createElement('nav', {
-                className: 'bm-item-list',
-                style: this.getStyles('itemList')
-            }, _react2['default'].Children.map(this.props.children, function (item, index) {
-                var extraProps = {
-                        key: index,
-                        style: _this2.getStyles('item', index)
-                    };
-                return _react2['default'].cloneElement(item, extraProps);
-            }))), this.props.customCrossIcon !== false ? _react2['default'].createElement('div', { style: this.getStyles('closeButton') }, _react2['default'].createElement(_CrossIcon2['default'], {
-                onClick: this.toggleMenu,
-                styles: this.props.styles,
-                customIcon: this.props.customCrossIcon
-            })) : null), this.props.customBurgerIcon !== false ? _react2['default'].createElement(_BurgerIcon2['default'], {
-                onClick: this.toggleMenu,
-                styles: this.props.styles,
-                customIcon: this.props.customBurgerIcon
-            }) : null);
-        }
-    }));
+        outerContainerId: '',
+        pageWrapId: '',
+        styles: {},
+        width: 300
+    };
+    return Menu;
 };
 module.exports = exports['default'];
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
@@ -1660,11 +1803,19 @@ var styles = {
                 height: '100%',
                 right: right ? 'inherit' : 0,
                 left: right ? 0 : 'inherit',
+                MozTransform: right ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                MsTransform: right ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                OTransform: right ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                WebkitTransform: right ? 'rotateY(180deg)' : 'rotateY(0deg)',
                 transform: right ? 'rotateY(180deg)' : 'rotateY(0deg)'
             };
         },
         menuWrap: function menuWrap(isOpen, width, right) {
             return {
+                MozTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
+                MsTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
+                OTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
+                WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
                 transform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
                 transition: isOpen ? 'transform 0.4s 0s' : 'transform 0.4s'
             };
@@ -1673,6 +1824,10 @@ var styles = {
             width -= 140;
             return {
                 position: 'fixed',
+                MozTransform: isOpen ? '' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                MsTransform: isOpen ? '' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                OTransform: isOpen ? '' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                WebkitTransform: isOpen ? '' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
                 transform: isOpen ? '' : right ? 'translate3d(' + width + 'px, 0, 0)' : 'translate3d(-' + width + 'px, 0, 0)',
                 transition: isOpen ? 'opacity 0.1s 0.4s cubic-bezier(.17, .67, .1, 1.27), transform 0.1s 0.4s cubic-bezier(.17, .67, .1, 1.27)' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                 opacity: isOpen ? 1 : 0
@@ -1681,6 +1836,10 @@ var styles = {
         item: function item(isOpen, width, right, nthChild) {
             width -= 140;
             return {
+                MozTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                MsTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                OTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
                 transform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + 'px, 0, 0)' : 'translate3d(-' + width + 'px, 0, 0)',
                 transition: isOpen ? 'opacity 0.3s 0.4s, transform 0.3s 0.4s' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                 opacity: isOpen ? 1 : 0
@@ -1689,6 +1848,10 @@ var styles = {
         closeButton: function closeButton(isOpen, width, right) {
             width -= 140;
             return {
+                MozTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                MsTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                OTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
                 transform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(' + width + 'px, 0, 0)' : 'translate3d(-' + width + 'px, 0, 0)',
                 transition: isOpen ? 'opacity 0.3s 0.4s cubic-bezier(.17, .67, .1, 1.27), transform 0.3s 0.4s cubic-bezier(.17, .67, .1, 1.27)' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                 opacity: isOpen ? 1 : 0
@@ -1723,11 +1886,19 @@ var styles = {
                 height: '100%',
                 right: right ? 'inherit' : 0,
                 left: right ? 0 : 'inherit',
+                MozTransform: right ? 'rotateY(180deg)' : '',
+                MsTransform: right ? 'rotateY(180deg)' : '',
+                OTransform: right ? 'rotateY(180deg)' : '',
+                WebkitTransform: right ? 'rotateY(180deg)' : '',
                 transform: right ? 'rotateY(180deg)' : ''
             };
         },
         menuWrap: function menuWrap(isOpen, width, right) {
             return {
+                MozTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
+                MsTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
+                OTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
+                WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
                 transform: isOpen ? 'translate3d(0, 0, 0)' : right ? 'translate3d(100%, 0, 0)' : 'translate3d(-100%, 0, 0)',
                 transition: 'all 0.3s'
             };
@@ -1738,19 +1909,26 @@ var styles = {
                 right: right ? 0 : 'inherit',
                 width: 'calc(100% - 120px)',
                 whiteSpace: 'nowrap',
-                boxSizing: 'border-box'
+                boxSizing: 'border-box',
+                overflow: 'visible'
             };
         },
         itemList: function itemList(isOpen, width, right) {
             if (right) {
                 return {
                     position: 'relative',
-                    left: '-110px'
+                    left: '-110px',
+                    width: '170%',
+                    overflow: 'auto'
                 };
             }
         },
         pageWrap: function pageWrap(isOpen, width, right) {
             return {
+                MozTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
+                MsTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
+                OTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
+                WebkitTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
                 transform: isOpen ? '' : right ? 'translate3d(-100px, 0, 0)' : 'translate3d(100px, 0, 0)',
                 transition: isOpen ? 'all 0.3s' : 'all 0.3s 0.1s'
             };
@@ -1772,13 +1950,21 @@ var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         menuWrap: function menuWrap(isOpen) {
             return {
+                MozTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                MsTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                OTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                WebkitTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
                 transform: isOpen ? '' : 'translate3d(0, -100%, 0)',
                 transition: 'all 0.5s ease-in-out'
             };
         },
         pageWrap: function pageWrap(isOpen, width, right) {
             return {
-                transform: isOpen ? '' : right ? 'translate3d(-' + width + 'px, 0, 0)' : 'translate3d(' + width + 'px, 0, 0)',
+                MozTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
+                MsTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
+                OTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
+                WebkitTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
+                transform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
                 transition: 'all 0.5s'
             };
         },
@@ -1803,7 +1989,11 @@ var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         pageWrap: function pageWrap(isOpen, width, right) {
             return {
-                transform: isOpen ? '' : right ? 'translate3d(-' + width + 'px, 0, 0)' : 'translate3d(' + width + 'px, 0, 0)',
+                MozTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
+                MsTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
+                OTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
+                WebkitTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
+                transform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0)' : 'translate3d(' + width + ', 0, 0)',
                 transition: 'all 0.5s'
             };
         },
@@ -1824,7 +2014,11 @@ var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         pageWrap: function pageWrap(isOpen, width, right) {
             return {
-                transform: isOpen ? '' : right ? 'translate3d(-' + width + 'px, 0, 0) rotateY(15deg)' : 'translate3d(' + width + 'px, 0, 0) rotateY(-15deg)',
+                MozTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0) rotateY(15deg)' : 'translate3d(' + width + ', 0, 0) rotateY(-15deg)',
+                MsTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0) rotateY(15deg)' : 'translate3d(' + width + ', 0, 0) rotateY(-15deg)',
+                OTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0) rotateY(15deg)' : 'translate3d(' + width + ', 0, 0) rotateY(-15deg)',
+                WebkitTransform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0) rotateY(15deg)' : 'translate3d(' + width + ', 0, 0) rotateY(-15deg)',
+                transform: isOpen ? '' : right ? 'translate3d(-' + width + ', 0, 0) rotateY(15deg)' : 'translate3d(' + width + ', 0, 0) rotateY(-15deg)',
                 transformOrigin: right ? '100% 50%' : '0% 50%',
                 transformStyle: 'preserve-3d',
                 transition: 'all 0.5s'
@@ -1850,7 +2044,11 @@ var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         pageWrap: function pageWrap(isOpen, width) {
             return {
-                transform: isOpen ? '' : 'translate3d(0, 0, -' + width + 'px)',
+                MozTransform: isOpen ? '' : 'translate3d(0, 0, -' + width + ')',
+                MsTransform: isOpen ? '' : 'translate3d(0, 0, -' + width + ')',
+                OTransform: isOpen ? '' : 'translate3d(0, 0, -' + width + ')',
+                WebkitTransform: isOpen ? '' : 'translate3d(0, 0, -' + width + ')',
+                transform: isOpen ? '' : 'translate3d(0, 0, -' + width + ')',
                 transformOrigin: '100%',
                 transformStyle: 'preserve-3d',
                 transition: 'all 0.5s'
@@ -1873,6 +2071,10 @@ var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         pageWrap: function pageWrap(isOpen, width, right) {
             return {
+                MozTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
+                MsTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
+                OTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
+                WebkitTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
                 transform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
                 transformStyle: 'preserve-3d',
                 transition: 'all 0.5s',
@@ -1911,6 +2113,10 @@ var styles = {
         pageWrap: function pageWrap(isOpen, width, right, breakpoint) {
             if (window.innerWidth < breakpoint) {
                 return {
+                    MozTransform: isOpen ? '' : right ? 'translate3d(-' + width + 'px, 0, 0)' : 'translate3d(' + width + 'px, 0, 0)',
+                    MsTransform: isOpen ? '' : right ? 'translate3d(-' + width + 'px, 0, 0)' : 'translate3d(' + width + 'px, 0, 0)',
+                    OTransform: isOpen ? '' : right ? 'translate3d(-' + width + 'px, 0, 0)' : 'translate3d(' + width + 'px, 0, 0)',
+                    WebkitTransform: isOpen ? '' : right ? 'translate3d(-' + width + 'px, 0, 0)' : 'translate3d(' + width + 'px, 0, 0)',
                     transform: isOpen ? '' : right ? 'translate3d(-' + width + 'px, 0, 0)' : 'translate3d(' + width + 'px, 0, 0)',
                     transition: 'transform 0.5s'
                 };
@@ -1940,14 +2146,21 @@ var _menuFactory = require('../menuFactory');
 var _menuFactory2 = _interopRequireDefault(_menuFactory);
 var styles = {
         menuWrap: function menuWrap(isOpen, width, right) {
-            width += 20;
             return {
-                transform: isOpen ? '' : right ? 'translate3d(' + width + 'px, 0, 0)' : 'translate3d(-' + width + 'px, 0, 0)',
+                MozTransform: isOpen ? '' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                MsTransform: isOpen ? '' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                OTransform: isOpen ? '' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                WebkitTransform: isOpen ? '' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
+                transform: isOpen ? '' : right ? 'translate3d(' + width + ', 0, 0)' : 'translate3d(-' + width + ', 0, 0)',
                 transition: isOpen ? 'transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)' : 'transform 0.4s cubic-bezier(0.7, 0, 0.3, 1)'
             };
         },
         item: function item(isOpen, width, right, nthChild) {
             return {
+                MozTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
+                MsTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
+                OTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
+                WebkitTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
                 transform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
                 transition: isOpen ? 'transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)' : 'transform 0s 0.2s cubic-bezier(0.7, 0, 0.3, 1)'
             };

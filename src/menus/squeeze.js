@@ -5,20 +5,24 @@ import menuFactory from '../menuFactory';
 const styles = {
 
   pageWrap(isOpen, width, right, breakpoint) {
-	if(window.innerWidth < breakpoint) {
+		if (window.innerWidth < breakpoint) {
+			return {
+				MozTransform: isOpen ? '' : right ? `translate3d(-${width}px, 0, 0)` : `translate3d(${width}px, 0, 0)`,
+				MsTransform: isOpen ? '' : right ? `translate3d(-${width}px, 0, 0)` : `translate3d(${width}px, 0, 0)`,
+				OTransform: isOpen ? '' : right ? `translate3d(-${width}px, 0, 0)` : `translate3d(${width}px, 0, 0)`,
+				WebkitTransform: isOpen ? '' : right ? `translate3d(-${width}px, 0, 0)` : `translate3d(${width}px, 0, 0)`,
+				transform: isOpen ? '' : right ? `translate3d(-${width}px, 0, 0)` : `translate3d(${width}px, 0, 0)`,
+				transition: 'transform 0.5s'
+			};
+		}
 		return {
-			transform: isOpen ? '' : right ? `translate3d(-${width}px, 0, 0)` : `translate3d(${width}px, 0, 0)`,
-			transition: 'transform 0.5s'
+			width: isOpen ? '100%' : `calc(100% - ${width}px)`,
+			position: 'absolute',
+			right: right ? 'initial' : '0',
+			left: right ? '0' : 'initial',
+			top: '0',
+			transition: 'width 0.5s'
 		};
-	}
-    return {
-	  width: isOpen ? '100%' : `calc(100% - ${width}px)`,
-	  position: 'absolute',
-	  right: right ? 'initial' : '0',
-	  left: right ? '0' : 'initial',
-	  top: '0',
-      transition: 'width 0.5s'
-    };
   },
 
   outerContainer(isOpen) {

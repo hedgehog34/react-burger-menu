@@ -16,7 +16,6 @@
     "browserify-optional": "^1.0.0",
     "classnames": "^2.1.1",
     "jsdom": "^9.12.0",
-    "radium": "^0.18.2",
     "snapsvg": "^0.5.1"
   },
   "devDependencies": {
@@ -53,7 +52,6 @@
   "browserify-shim": {
     "react": "global:React",
     "react-dom": "global:ReactDOM",
-    "radium": "global:Radium",
     "snapsvg": "global:Snap"
   },
   "scripts": {

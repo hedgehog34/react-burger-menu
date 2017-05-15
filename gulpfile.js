@@ -22,7 +22,6 @@ var taskConfig = {
     dependencies: [
       'browserify-optional',
       'classnames',
-      'radium',
       'react',
       'react-dom',
       'snapsvg'
