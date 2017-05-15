@@ -4,13 +4,13 @@
   "description": "An off-canvas sidebar component with a collection of effects and styles using CSS transitions and SVG path animations",
   "main": "lib/BurgerMenu.js",
   "author": "Robert Jezyk",
-  "homepage": "https://github.com/negomi/react-burger-menu",
+  "homepage": "https://github.com/hedgehog34/react-burger-menu",
   "repository": {
     "type": "git",
-    "url": "https://github.com/negomi/react-burger-menu.git"
+    "url": "https://github.com/hedgehog34/react-burger-menu.git"
   },
   "bugs": {
-    "url": "https://github.com/negomi/react-burger-menu/issues"
+    "url": "https://github.com/hedgehog34/react-burger-menu/issues"
   },
   "dependencies": {
     "browserify-optional": "^1.0.0",
