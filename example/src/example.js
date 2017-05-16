@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BurgerMenu from 'react-burger-menu';
+import BurgerMenu from 'react-burger-menu-accountz';
 import classNames from 'classnames';
 
 class MenuWrap extends React.Component {
@@ -115,7 +115,7 @@ class Demo extends React.Component {
     } else {
       jsx = (
         <MenuWrap wait={20}>
-          <Menu id={this.state.currentMenu} pageWrapId={"page-wrap"} outerContainerId={"outer-container"}>
+          <Menu id={this.state.currentMenu} pageWrapId={"page-wrap2"} outerContainerId={"outer-container2"} isOpen>
             {items}
           </Menu>
         </MenuWrap>

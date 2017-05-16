@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+
 import baseStyles from './baseStyles';
 import BurgerIcon from './BurgerIcon';
 import CrossIcon from './CrossIcon';
@@ -67,7 +68,9 @@ export default (styles) => {
       const wrapper = document.getElementById(id);
 
       if (!wrapper) {
-        console.error("Element with ID '" + id + "' not found");
+        if (!this.state.isOpen) {
+            console.error("Element with ID '" + id + "' not found");
+        }
         return;
       }
 
