@@ -115,7 +115,7 @@ class Demo extends React.Component {
     } else {
       jsx = (
         <MenuWrap wait={20}>
-          <Menu id={this.state.currentMenu} pageWrapId={"page-wrap2"} outerContainerId={"outer-container2"} isOpen>
+          <Menu id={this.state.currentMenu} pageWrapId={"page-wrap"} outerContainerId={"outer-container"} isOpen>
             {items}
           </Menu>
         </MenuWrap>
