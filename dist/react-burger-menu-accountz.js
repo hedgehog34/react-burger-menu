@@ -1633,9 +1633,8 @@ exports['default'] = function (styles) {
                         var body = document.querySelector('body');
                         var wrapper = document.getElementById(id);
                         if (!wrapper) {
-                            if (!this.state.isOpen) {
+                            if (!this.state.isOpen)
                                 console.error('Element with ID \'' + id + '\' not found');
-                            }
                             return;
                         }
                         var builtStyles = this.getStyle(wrapperStyles);
