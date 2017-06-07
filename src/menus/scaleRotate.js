@@ -4,23 +4,48 @@ import menuFactory from '../menuFactory';
 
 const styles = {
 
-  pageWrap(isOpen, width, right) {
-    return {
-      MozTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
-      MsTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
-      OTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
-      WebkitTransform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
-      transform: isOpen ? '' : right ? 'translate3d(-100px, 0, -600px) rotateY(20deg)' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
-      transformStyle: 'preserve-3d',
-      transition: 'all 0.5s',
-      overflow: isOpen ? '' : 'hidden'
-    };
+  pageWrap(isOpen, width, height, position) {
+      switch (position) {
+          case 'right':
+              return {
+                  MozTransform: isOpen ? '' : 'translate3d(-100px, 0, -600px) rotateY(20deg)',
+                  MsTransform: isOpen ? '' : 'translate3d(-100px, 0, -600px) rotateY(20deg)',
+                  OTransform: isOpen ? '' : 'translate3d(-100px, 0, -600px) rotateY(20deg)',
+                  WebkitTransform: isOpen ? '' : 'translate3d(-100px, 0, -600px) rotateY(20deg)',
+                  transform: isOpen ? '' : 'translate3d(-100px, 0, -600px) rotateY(20deg)',
+                  transformStyle: 'preserve-3d',
+                  transition: 'all 0.5s',
+                  overflow: isOpen ? '' : 'hidden',
+              };
+
+          case 'left':
+              return {
+                  MozTransform: isOpen ? '' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
+                  MsTransform: isOpen ? '' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
+                  OTransform: isOpen ? '' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
+                  WebkitTransform: isOpen ? '' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
+                  transform: isOpen ? '' : 'translate3d(100px, 0, -600px) rotateY(-20deg)',
+                  transformStyle: 'preserve-3d',
+                  transition: 'all 0.5s',
+                  overflow: isOpen ? '' : 'hidden',
+              };
+
+          case 'bottom':
+              return {
+                  MozTransform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
+                  MsTransform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
+                  OTransform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
+                  WebkitTransform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
+                  transform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
+                  transition: 'all 0.5s',
+              };
+      }
   },
 
   outerContainer(isOpen) {
     return {
       perspective: '1500px',
-      overflow: isOpen ? '' : 'hidden'
+      overflow: isOpen ? '' : 'hidden',
     };
   }
 };

@@ -107,15 +107,23 @@ class Demo extends React.Component {
     if (this.state.side === 'right') {
       jsx = (
         <MenuWrap wait={20} side={this.state.side}>
-          <Menu id={this.state.currentMenu} pageWrapId={"page-wrap"} outerContainerId={"outer-container"} right>
+          <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} position="right">
             {items}
           </Menu>
         </MenuWrap>
       );
-    } else {
+    } else if (this.state.side === 'bottom') {
+        jsx = (
+            <MenuWrap wait={20} side={this.state.side}>
+              <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} position="bottom">
+                  {items}
+              </Menu>
+            </MenuWrap>
+        );
+    } else if (this.state.side === 'left') {
       jsx = (
         <MenuWrap wait={20}>
-          <Menu id={this.state.currentMenu} pageWrapId={"page-wrap"} outerContainerId={"outer-container"} isOpen>
+          <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} isOpen>
             {items}
           </Menu>
         </MenuWrap>
@@ -142,6 +150,7 @@ class Demo extends React.Component {
         <main id="page-wrap">
           <h1><a href="https://github.com/negomi/react-burger-menu">react-burger-menu</a></h1>
           <a className={classNames({'side-button': true, 'left': true, 'active': this.state.side === 'left'})} onClick={this.changeSide.bind(this, 'left')}>Left</a>
+          <a className={classNames({'side-button': true, 'middle': true, 'active': this.state.side === 'bottom'})} onClick={this.changeSide.bind(this, 'bottom')}>Bottom</a>
           <a className={classNames({'side-button': true, 'right': true, 'active': this.state.side === 'right'})} onClick={this.changeSide.bind(this, 'right')}>Right</a>
           <h2 className="description">An off-canvas sidebar React component with a collection of effects and styles using CSS transitions and SVG path animations.</h2>
           <nav className="demo-buttons">

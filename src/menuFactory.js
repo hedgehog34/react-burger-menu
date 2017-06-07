@@ -121,11 +121,12 @@ export default (styles) => {
     }
 
     getStyle(style, index) {
-      let width = this.props.width;
+      let { width, height } = this.props;
       // Uncomment this line to change Menu to accept other values than pixels, this requires change to the API
       // if (typeof width !== 'string') width = `${width}px`;
+      // if (typeof height !== 'string') width = `${height}px`;
 
-      return style(this.state.isOpen, width, this.props.right, this.props.breakpoint, index);
+      return style(this.state.isOpen, width, height, this.props.position, this.props.breakpoint, index);
     }
 
     listenForClose(e) {
@@ -186,6 +187,7 @@ export default (styles) => {
     }
 
     render() {
+      // console.log(this.getStyles('morphShape'));
       return (
         <div>
           {!this.props.noOverlay ? <div className="bm-overlay" onClick={() => this.toggleMenu()} style={this.getStyles('overlay')} /> : null}
@@ -229,24 +231,27 @@ export default (styles) => {
     className: PropTypes.string,
     customBurgerIcon: PropTypes.oneOfType([PropTypes.element, PropTypes.oneOf([false])]),
     customCrossIcon: PropTypes.oneOfType([PropTypes.element, PropTypes.oneOf([false])]),
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     id: PropTypes.string,
     isOpen: PropTypes.bool,
     noOverlay: PropTypes.bool,
     onStateChange: PropTypes.func,
     outerContainerId: styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string,
     pageWrapId: styles && styles.pageWrap ? PropTypes.string.isRequired : PropTypes.string,
-    right: PropTypes.bool,
+    position: PropTypes.oneOf(['right', 'left', 'bottom']),
     styles: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   Menu.defaultProps = {
     breakpoint: 960,
+    height: 350,
     id: '',
     noOverlay: false,
     onStateChange: () => {},
     outerContainerId: '',
     pageWrapId: '',
+    position: 'left',
     styles: {},
     width: 300
   };
