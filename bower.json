@@ -1,11 +1,11 @@
 {
   "name": "react-burger-menu",
-  "version": "1.9.8",
+  "version": "3.0.1",
   "description": "An off-canvas sidebar component with a collection of effects and styles using CSS transitions and SVG path animations",
   "main": "dist/react-burger-menu.min.js",
-  "homepage": "https://github.com/negomi/react-burger-menu",
+  "homepage": "https://github.com/hedgehog34/react-burger-menu",
   "authors": [
-    "Imogen Wentworth"
+    "Robert Jezyk"
   ],
   "moduleType": [
     "amd",
