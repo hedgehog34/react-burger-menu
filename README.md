@@ -94,6 +94,7 @@ var Example = React.createClass({
 * `pushRotate`
 * `scaleDown`
 * `scaleRotate`
+* `squeeze`
 * `fallDown`
 
 ### Properties
@@ -137,14 +138,19 @@ Animation | `pageWrapId` | `outerContainerId`
 `pushRotate` |  &#x2713;  |  &#x2713;
 `scaleDown` |  &#x2713;  |  &#x2713;
 `scaleRotate` |  &#x2713;  |  &#x2713;
+`squeeze` |  &#x2713;  |  &#x2713;
 `fallDown` |  &#x2713;  |  &#x2713;
+
+Additionally squeeze animation accepts breakpoint prop, which describes the point in viewport width, where there is no longer desired to content to shrink. Its default value is 960, but this can be controlled:
+
+`<Menu breakpoint={ 660 } />`
 
 #### Position
 
-The menu opens from the left by default. To have it open from the right, use the `right` prop. It's just a boolean so you don't need to specify a value. Then set the position of the button using CSS.
+The menu opens from the left by default. To have it open from the right, use the `position` prop. It's just a strin with 3 possible values: `left`, `right`, `bottom` so you don't need to specify a value. Then set the position of the button using CSS.
 
 ``` javascript
-<Menu right />
+<Menu position='right' />
 ```
 
 #### Width
@@ -153,6 +159,12 @@ You can specify the width of the menu (in pixels) with the `width` prop. The def
 
 ``` javascript
 <Menu width={ 280 } />
+```
+
+#### Height
+When used with `position='bottom'` height can be passed to component (default is 350px).
+``` javascript
+<Menu height={ 600 } />
 ```
 
 #### Open state
@@ -308,7 +320,9 @@ var styles = {
     background: 'rgba(0, 0, 0, 0.3)'
   }
 }
+```
 
+```
 <Menu styles={ styles } />
 ```
 
