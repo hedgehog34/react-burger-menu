@@ -187,7 +187,6 @@ export default (styles) => {
     }
 
     render() {
-      // console.log(this.getStyles('morphShape'));
       return (
         <div>
           {!this.props.noOverlay ? <div className="bm-overlay" onClick={() => this.toggleMenu()} style={this.getStyles('overlay')} /> : null}
