@@ -336,7 +336,7 @@ Check the FAQ (https://github.com/negomi/react-burger-menu/wiki/FAQ) to see if y
 
 MIT
 
-### Updating published npm package
+### Updating and publishing npm package
 https://docs.npmjs.com/getting-started/publishing-npm-packages
 
 After the package get published for the first time, further updates are being done as follows:
