@@ -63,7 +63,7 @@ const styles = {
               return {
                   position: 'fixed',
                   width: '100%',
-                  height: `${height - 120}px`,
+                  height: `calc(${height} - 120px)`,
                   right: 'inherit',
                   left: 'inherit',
                   MozTransform: 'rotateY(90deg)',
@@ -84,7 +84,7 @@ const styles = {
                   OTransform: isOpen ? 'translate3d(0, 0, 0)' : 'translate3d(100%, 0, 0)',
                   WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : 'translate3d(100%, 0, 0)',
                   transform: isOpen ? 'translate3d(0, 0, 0)' : 'translate3d(100%, 0, 0)',
-                  transition: isOpen ? 'transform 0.4s 0s' : 'transform 0.4s'
+                  transition: isOpen ? 'transform 0.4s 0s' : 'transform 0.4s',
               };
 
           case 'left':
@@ -94,17 +94,17 @@ const styles = {
                   OTransform: isOpen ? 'translate3d(0, 0, 0)' : 'translate3d(-100%, 0, 0)',
                   WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : 'translate3d(-100%, 0, 0)',
                   transform: isOpen ? 'translate3d(0, 0, 0)' : 'translate3d(-100%, 0, 0)',
-                  transition: isOpen ? 'transform 0.4s 0s' : 'transform 0.4s'
+                  transition: isOpen ? 'transform 0.4s 0s' : 'transform 0.4s',
               };
 
           case 'bottom':
               return {
-                  MozTransform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
-                  MsTransform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
-                  OTransform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
-                  WebkitTransform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
-                  transform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
-                  transition: isOpen ? 'transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)' : 'transform 0.4s cubic-bezier(0.7, 0, 0.3, 1)'
+                  MozTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  MsTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  OTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  WebkitTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  transform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  transition: isOpen ? 'transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)' : 'transform 0.4s cubic-bezier(0.7, 0, 0.3, 1)',
               };
       }
   },
@@ -119,7 +119,7 @@ const styles = {
                   MsTransform: isOpen ? '' : `translate3d(${width}, 0, 0)`,
                   OTransform: isOpen ? '' : `translate3d(${width}, 0, 0)`,
                   WebkitTransform: isOpen ? '' : `translate3d(${width}, 0, 0)`,
-                  transform: isOpen ? '' : `translate3d(${width}px, 0, 0)`,
+                  transform: isOpen ? '' : `translate3d(${width}, 0, 0)`,
                   transition: isOpen ? 'opacity 0.1s 0.4s cubic-bezier(.17, .67, .1, 1.27), transform 0.1s 0.4s cubic-bezier(.17, .67, .1, 1.27)' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                   opacity: isOpen ? 1 : 0,
               };
@@ -131,23 +131,13 @@ const styles = {
                   MsTransform: isOpen ? '' : `translate3d(-${width}, 0, 0)`,
                   OTransform: isOpen ? '' : `translate3d(-${width}, 0, 0)`,
                   WebkitTransform: isOpen ? '' : `translate3d(-${width}, 0, 0)`,
-                  transform: isOpen ? '' : `translate3d(-${width}px, 0, 0)`,
+                  transform: isOpen ? '' : `translate3d(-${width}, 0, 0)`,
                   transition: isOpen ? 'opacity 0.1s 0.4s cubic-bezier(.17, .67, .1, 1.27), transform 0.1s 0.4s cubic-bezier(.17, .67, .1, 1.27)' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                   opacity: isOpen ? 1 : 0,
               };
 
           case 'bottom':
-              return {
-                  position: 'fixed',
-                  width: '100%',
-                  MozTransform: isOpen ? '' : `translate3d(0, -${height}, 0)`,
-                  MsTransform: isOpen ? '' : `translate3d(0, -${height}, 0)`,
-                  OTransform: isOpen ? '' : `translate3d(0, -${height}, 0)`,
-                  WebkitTransform: isOpen ? '' : `translate3d(0, -${height}, 0)`,
-                  transform: isOpen ? '' : `translate3d(0, -${height}, 0)`,
-                  transition: isOpen ? 'opacity 0.1s 0.4s cubic-bezier(.17, .67, .1, 1.27), transform 0.1s 0.4s cubic-bezier(.17, .67, .1, 1.27)' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
-                  opacity: isOpen ? 1 : 0,
-              };
+              return;
       }
   },
 
@@ -160,7 +150,7 @@ const styles = {
                   MsTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}, 0, 0)`,
                   OTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}, 0, 0)`,
                   WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}, 0, 0)`,
-                  transform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}px, 0, 0)`,
+                  transform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}, 0, 0)`,
                   transition: isOpen ? 'opacity 0.3s 0.4s, transform 0.3s 0.4s' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                   opacity: isOpen ? 1 : 0,
               };
@@ -171,18 +161,13 @@ const styles = {
                   MsTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}, 0, 0)`,
                   OTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}, 0, 0)`,
                   WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}, 0, 0)`,
-                  transform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}px, 0, 0)`,
+                  transform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}, 0, 0)`,
                   transition: isOpen ? 'opacity 0.3s 0.4s, transform 0.3s 0.4s' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                   opacity: isOpen ? 1 : 0,
               };
 
           case 'bottom':
               return {
-                  MozTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(0, -${height}, 0)`,
-                  MsTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(0, -${height}, 0)`,
-                  OTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(0, -${height}, 0)`,
-                  WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(0, -${height}, 0)`,
-                  transform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(0, -${height}, 0)`,
                   transition: isOpen ? 'opacity 0.3s 0.4s, transform 0.3s 0.4s' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                   opacity: isOpen ? 1 : 0,
               };
@@ -198,7 +183,7 @@ const styles = {
                   MsTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}, 0, 0)`,
                   OTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}, 0, 0)`,
                   WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}, 0, 0)`,
-                  transform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}px, 0, 0)`,
+                  transform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(${width}, 0, 0)`,
                   transition: isOpen ? 'opacity 0.3s 0.4s cubic-bezier(.17, .67, .1, 1.27), transform 0.3s 0.4s cubic-bezier(.17, .67, .1, 1.27)' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                   opacity: isOpen ? 1 : 0,
               };
@@ -209,7 +194,7 @@ const styles = {
                   MsTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}, 0, 0)`,
                   OTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}, 0, 0)`,
                   WebkitTransform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}, 0, 0)`,
-                  transform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}px, 0, 0)`,
+                  transform: isOpen ? 'translate3d(0, 0, 0)' : `translate3d(-${width}, 0, 0)`,
                   transition: isOpen ? 'opacity 0.3s 0.4s cubic-bezier(.17, .67, .1, 1.27), transform 0.3s 0.4s cubic-bezier(.17, .67, .1, 1.27)' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                   opacity: isOpen ? 1 : 0,
               };

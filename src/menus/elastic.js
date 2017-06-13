@@ -48,7 +48,7 @@ const styles = {
               return {
                   position: 'fixed',
                   width: '100%',
-                  height: `${height - 120}px`,
+                  height: `calc(${height} - 120px)`,
                   right: 'inherit',
                   left: 'inherit',
                   MozTransform: 'rotateY(90deg)',
@@ -84,11 +84,11 @@ const styles = {
 
           case 'bottom':
               return {
-                  MozTransform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
-                  MsTransform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
-                  OTransform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
-                  WebkitTransform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
-                  transform: isOpen ? '' : `translate3d(0, ${height}px, 0)`,
+                  MozTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  MsTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  OTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  WebkitTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  transform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
                   transition: isOpen ? 'transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)' : 'transform 0.4s cubic-bezier(0.7, 0, 0.3, 1)'
               };
       }

@@ -32,11 +32,11 @@ const styles = {
 
           case 'bottom':
               return {
-                  MozTransform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
-                  MsTransform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
-                  OTransform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
-                  WebkitTransform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
-                  transform: isOpen ? '' : `translate3d(0, -${height}px, 0) rotateX(25deg)`,
+                  MozTransform: isOpen ? '' : `translate3d(0, -${height}, 0) rotateX(25deg)`,
+                  MsTransform: isOpen ? '' : `translate3d(0, -${height}, 0) rotateX(25deg)`,
+                  OTransform: isOpen ? '' : `translate3d(0, -${height}, 0) rotateX(25deg)`,
+                  WebkitTransform: isOpen ? '' : `translate3d(0, -${height}, 0) rotateX(25deg)`,
+                  transform: isOpen ? '' : `translate3d(0, -${height}, 0) rotateX(25deg)`,
                   transition: 'all 0.5s',
               };
       }

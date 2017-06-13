@@ -107,7 +107,7 @@ class Demo extends React.Component {
     if (this.state.side === 'right') {
       jsx = (
         <MenuWrap wait={20} side={this.state.side}>
-          <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} position="right">
+          <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} position="right" width="50vw">
             {items}
           </Menu>
         </MenuWrap>
@@ -115,7 +115,7 @@ class Demo extends React.Component {
     } else if (this.state.side === 'bottom') {
         jsx = (
             <MenuWrap wait={20} side={this.state.side}>
-              <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} position="bottom">
+              <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} position="bottom" height="100vh">
                   {items}
               </Menu>
             </MenuWrap>
@@ -123,7 +123,7 @@ class Demo extends React.Component {
     } else if (this.state.side === 'left') {
       jsx = (
         <MenuWrap wait={20}>
-          <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} isOpen>
+          <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} width="20em" isOpen>
             {items}
           </Menu>
         </MenuWrap>

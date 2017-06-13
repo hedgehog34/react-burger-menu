@@ -122,9 +122,11 @@ export default (styles) => {
 
     getStyle(style, index) {
       let { width, height } = this.props;
+
       // Uncomment this line to change Menu to accept other values than pixels, this requires change to the API
-      // if (typeof width !== 'string') width = `${width}px`;
-      // if (typeof height !== 'string') width = `${height}px`;
+      // Supported units are `px`, `rem`, `em`, `vh`, `vw`, `vmin`, `vmax` (% don't work everywhere)
+      if (typeof width !== 'string') width = `${width}px`;
+      if (typeof height !== 'string') height = `${height}px`;
 
       return style(this.state.isOpen, width, height, this.props.position, this.props.breakpoint, index);
     }

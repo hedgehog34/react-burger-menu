@@ -9,21 +9,21 @@ const styles = {
             switch (position) {
                 case 'right':
                     return {
-                        MozTransform: isOpen ? '' : `translate3d(-${width}px, 0, 0)`,
-                        MsTransform: isOpen ? '' : `translate3d(-${width}px, 0, 0)`,
-                        OTransform: isOpen ? '' : `translate3d(-${width}px, 0, 0)`,
-                        WebkitTransform: isOpen ? '' : `translate3d(-${width}px, 0, 0)`,
-                        transform: isOpen ? '' : `translate3d(-${width}px, 0, 0)`,
+                        MozTransform: isOpen ? '' : `translate3d(-${width}, 0, 0)`,
+                        MsTransform: isOpen ? '' : `translate3d(-${width}, 0, 0)`,
+                        OTransform: isOpen ? '' : `translate3d(-${width}, 0, 0)`,
+                        WebkitTransform: isOpen ? '' : `translate3d(-${width}, 0, 0)`,
+                        transform: isOpen ? '' : `translate3d(-${width}, 0, 0)`,
                         transition: 'transform 0.5s'
                     };
 
                 default:
                     return {
-                        MozTransform: isOpen ? '' : `translate3d(${width}px, 0, 0)`,
-                        MsTransform: isOpen ? '' : `translate3d(${width}px, 0, 0)`,
-                        OTransform: isOpen ? '' : `translate3d(${width}px, 0, 0)`,
-                        WebkitTransform: isOpen ? '' : `translate3d(${width}px, 0, 0)`,
-                        transform: isOpen ? '' : `translate3d(${width}px, 0, 0)`,
+                        MozTransform: isOpen ? '' : `translate3d(${width}, 0, 0)`,
+                        MsTransform: isOpen ? '' : `translate3d(${width}, 0, 0)`,
+                        OTransform: isOpen ? '' : `translate3d(${width}, 0, 0)`,
+                        WebkitTransform: isOpen ? '' : `translate3d(${width}, 0, 0)`,
+                        transform: isOpen ? '' : `translate3d(${width}, 0, 0)`,
                         transition: 'transform 0.5s'
                     };
             }
@@ -36,7 +36,7 @@ const styles = {
 
           default:
               return {
-                  width: isOpen ? '100%' : `calc(100% - ${width}px)`,
+                  width: isOpen ? '100%' : `calc(100% - ${width})`,
                   position: 'absolute',
                   right: position === 'right' ? 'initial' : '0',
                   left: position === 'right' ? '0' : 'initial',
