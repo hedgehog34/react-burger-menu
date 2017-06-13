@@ -115,7 +115,7 @@ class Demo extends React.Component {
     } else if (this.state.side === 'bottom') {
         jsx = (
             <MenuWrap wait={20} side={this.state.side}>
-              <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} position="bottom" height="100vh">
+              <Menu id={this.state.currentMenu} pageWrapId={'page-wrap'} outerContainerId={'outer-container'} position="bottom" height="40vh">
                   {items}
               </Menu>
             </MenuWrap>
