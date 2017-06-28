@@ -85,8 +85,8 @@ describe('menuFactory', () => {
     });
 
     it('sets global keydown event handler', () => {
-      component = TestUtils.renderIntoDocument(<Menu />);
-      assert.equal(window.onkeydown, component.listenForClose);
+        component = TestUtils.renderIntoDocument(<Menu />);
+        expect(window.onkeydown.name).to.contain('listenForClose');
     });
 
     it('contains an overlay', () => {
@@ -126,10 +126,6 @@ describe('menuFactory', () => {
 
       component = TestUtils.renderIntoDocument(<Menu><div>A child</div><div>Another child</div></Menu>);
       expect(React.Children.count(component.props.children)).to.equal(2);
-    });
-
-    it('is initially closed', () => {
-      expect(Menu.prototype.getInitialState().isOpen).to.be.false;
     });
 
     it('closes on Escape key press', () => {

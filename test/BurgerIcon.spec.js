@@ -36,10 +36,6 @@ describe('BurgerIcon component', () => {
     it('contains a button element', () => {
       expect(component.props.children[1].type).to.equal('button');
     });
-
-    it('has correct initial hover state', () => {
-      expect(BurgerIcon.prototype.getInitialState().hover).to.be.false;
-    });
   });
 
   describe('wrapper element', () => {
