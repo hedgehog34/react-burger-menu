@@ -45,6 +45,7 @@ const styles = {
               };
 
           case 'bottom':
+          case 'top':
               return {
                   position: 'fixed',
                   width: '100%',

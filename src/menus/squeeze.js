@@ -28,8 +28,10 @@ const styles = {
                     };
             }
 		}
+
       switch (position) {
           case 'bottom':
+          case 'top':
               return {
                   width: '100%',
               };

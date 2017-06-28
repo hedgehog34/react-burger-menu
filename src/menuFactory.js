@@ -87,7 +87,7 @@ export default (styles) => {
     }
 
     // Builds styles incrementally for a given element.
-    getStyles(el, index, inline) {
+    getStyles(el, index, inline, children) {
       const propName = 'bm' + el.replace(el.charAt(0), el.charAt(0).toUpperCase());
 
       // Set base styles.
@@ -97,7 +97,7 @@ export default (styles) => {
       if (styles[el]) {
         output = {
           ...output,
-          ...this.getStyle(styles[el], index + 1)
+          ...this.getStyle(styles[el], index + 1, children)
         };
       }
 
@@ -120,7 +120,7 @@ export default (styles) => {
       return output;
     }
 
-    getStyle(style, index) {
+    getStyle(style, index, children) {
       let { width, height } = this.props;
 
       // Uncomment this line to change Menu to accept other values than pixels, this requires change to the API
@@ -128,7 +128,7 @@ export default (styles) => {
       if (typeof width !== 'string') width = `${width}px`;
       if (typeof height !== 'string') height = `${height}px`;
 
-      return style(this.state.isOpen, width, height, this.props.position, this.props.breakpoint, index);
+      return style(this.state.isOpen, width, height, this.props.position, this.props.breakpoint, index, children);
     }
 
     listenForClose(e) {
@@ -204,9 +204,10 @@ export default (styles) => {
               <nav className="bm-item-list" style={this.getStyles('itemList')}>
                 {React.Children.map(this.props.children, (item, index) => {
                   if (item) {
+                    const children = this.props.children.length;
                     const extraProps = {
                       key: index,
-                      style: this.getStyles('item', index, item.props.style)
+                      style: this.getStyles('item', index, item.props.style, children)
                     };
                     return React.cloneElement(item, extraProps);
                   }
@@ -239,7 +240,7 @@ export default (styles) => {
     onStateChange: PropTypes.func,
     outerContainerId: styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string,
     pageWrapId: styles && styles.pageWrap ? PropTypes.string.isRequired : PropTypes.string,
-    position: PropTypes.oneOf(['right', 'left', 'bottom']),
+    position: PropTypes.oneOf(['right', 'left', 'bottom', 'top']),
     styles: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };

@@ -60,6 +60,16 @@ const styles = {
                   transform: isOpen ? '' : `translate3d(0, -${height}, 0)`,
                   transition: 'all 0.5s',
               };
+
+          case 'top':
+              return {
+                  MozTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  MsTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  OTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  WebkitTransform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  transform: isOpen ? '' : `translate3d(0, ${height}, 0)`,
+                  transition: 'all 0.5s',
+              };
       }
   },
 

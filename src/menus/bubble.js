@@ -60,6 +60,7 @@ const styles = {
               };
 
           case 'bottom':
+          case 'top':
               return {
                   position: 'fixed',
                   width: '100%',
@@ -137,6 +138,7 @@ const styles = {
               };
 
           case 'bottom':
+          case 'top':
               return;
       }
   },
@@ -167,6 +169,7 @@ const styles = {
               };
 
           case 'bottom':
+          case 'top':
               return {
                   transition: isOpen ? 'opacity 0.3s 0.4s, transform 0.3s 0.4s' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                   opacity: isOpen ? 1 : 0,

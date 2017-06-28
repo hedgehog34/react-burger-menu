@@ -51,6 +51,21 @@ let styles = {
                 transition: 'all 0.5s'
             };
 
+        case 'top':
+            return {
+                position: 'fixed',
+                top: 0,
+                zIndex: 2,
+                width: '100%',
+                height,
+                MozTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                MsTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                OTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                WebkitTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                transform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                transition: 'all 0.5s'
+            };
+
         default:
             return {
                 position: 'fixed',
@@ -69,25 +84,24 @@ let styles = {
   },
 
   menu() {
-    return {
-      height: '100%',
-      boxSizing: 'border-box'
-    };
+      return {
+          height: '100%',
+          boxSizing: 'border-box'
+      };
   },
 
-  itemList() {
-    return {
-      height: '100%'
-    };
+  itemList(isOpen, width, height, position) {
+      return {
+          height: '100%',
+      };
   },
 
   item() {
-    return {
-      display: 'block',
-      outline: 'none'
-    };
-  }
-
+      return {
+          display: 'block',
+          outline: 'none'
+      };
+  },
 };
 
 export default styles;
