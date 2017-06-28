@@ -1,3 +1,5 @@
+require('../test/utils/dom.js');
+
 import { expect } from 'chai';
 import baseStyles from '../lib/baseStyles';
 

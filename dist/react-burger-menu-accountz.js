@@ -1473,6 +1473,20 @@ var styles = {
                     transform: isOpen ? '' : 'translate3d(0, 100%, 0)',
                     transition: 'all 0.5s'
                 };
+            case 'top':
+                return {
+                    position: 'fixed',
+                    top: 0,
+                    zIndex: 2,
+                    width: '100%',
+                    height: height,
+                    MozTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                    MsTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                    OTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                    WebkitTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                    transform: isOpen ? '' : 'translate3d(0, -100%, 0)',
+                    transition: 'all 0.5s'
+                };
             default:
                 return {
                     position: 'fixed',
@@ -1495,7 +1509,7 @@ var styles = {
                 boxSizing: 'border-box'
             };
         },
-        itemList: function itemList() {
+        itemList: function itemList(isOpen, width, height, position) {
             return { height: '100%' };
         },
         item: function item() {
@@ -1684,11 +1698,11 @@ exports['default'] = function (styles) {
                 },
                 {
                     key: 'getStyles',
-                    value: function getStyles(el, index, inline) {
+                    value: function getStyles(el, index, inline, children) {
                         var propName = 'bm' + el.replace(el.charAt(0), el.charAt(0).toUpperCase());
                         var output = _baseStyles2['default'][el] ? this.getStyle(_baseStyles2['default'][el]) : {};
                         if (styles[el]) {
-                            output = _extends({}, output, this.getStyle(styles[el], index + 1));
+                            output = _extends({}, output, this.getStyle(styles[el], index + 1, children));
                         }
                         if (this.props.styles[propName]) {
                             output = _extends({}, output, this.props.styles[propName]);
@@ -1701,7 +1715,7 @@ exports['default'] = function (styles) {
                 },
                 {
                     key: 'getStyle',
-                    value: function getStyle(style, index) {
+                    value: function getStyle(style, index, children) {
                         var _props = this.props;
                         var width = _props.width;
                         var height = _props.height;
@@ -1709,7 +1723,7 @@ exports['default'] = function (styles) {
                             width = width + 'px';
                         if (typeof height !== 'string')
                             height = height + 'px';
-                        return style(this.state.isOpen, width, height, this.props.position, this.props.breakpoint, index);
+                        return style(this.state.isOpen, width, height, this.props.position, this.props.breakpoint, index, children);
                     }
                 },
                 {
@@ -1805,9 +1819,10 @@ exports['default'] = function (styles) {
                             style: this.getStyles('itemList')
                         }, _react2['default'].Children.map(this.props.children, function (item, index) {
                             if (item) {
+                                var children = _this3.props.children.length;
                                 var extraProps = {
                                         key: index,
-                                        style: _this3.getStyles('item', index, item.props.style)
+                                        style: _this3.getStyles('item', index, item.props.style, children)
                                     };
                                 return _react2['default'].cloneElement(item, extraProps);
                             }
@@ -1853,7 +1868,8 @@ exports['default'] = function (styles) {
         position: _propTypes2['default'].oneOf([
             'right',
             'left',
-            'bottom'
+            'bottom',
+            'top'
         ]),
         styles: _propTypes2['default'].object,
         width: _propTypes2['default'].oneOfType([
@@ -1929,8 +1945,7 @@ var styles = {
                     position: 'fixed',
                     width: '100%',
                     height: '100%',
-                    right: 0,
-                    left: 'inherit',
+                    left: 0,
                     MozTransform: 'rotateY(0deg)',
                     MsTransform: 'rotateY(0deg)',
                     OTransform: 'rotateY(0deg)',
@@ -1938,6 +1953,7 @@ var styles = {
                     transform: 'rotateY(0deg)'
                 };
             case 'bottom':
+            case 'top':
                 return {
                     position: 'fixed',
                     width: '100%',
@@ -2009,6 +2025,7 @@ var styles = {
                     opacity: isOpen ? 1 : 0
                 };
             case 'bottom':
+            case 'top':
                 return;
             }
         },
@@ -2036,6 +2053,7 @@ var styles = {
                     opacity: isOpen ? 1 : 0
                 };
             case 'bottom':
+            case 'top':
                 return {
                     transition: isOpen ? 'opacity 0.3s 0.4s, transform 0.3s 0.4s' : 'opacity 0s 0.3s cubic-bezier(.17, .67, .1, 1.27), transform 0s 0.3s cubic-bezier(.17, .67, .1, 1.27)',
                     opacity: isOpen ? 1 : 0
@@ -2128,6 +2146,7 @@ var styles = {
                     transform: ''
                 };
             case 'bottom':
+            case 'top':
                 return {
                     position: 'fixed',
                     width: '100%',
@@ -2305,6 +2324,15 @@ var styles = {
                     transform: isOpen ? '' : 'translate3d(0, -' + height + ', 0)',
                     transition: 'all 0.5s'
                 };
+            case 'top':
+                return {
+                    MozTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    MsTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    OTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    WebkitTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    transform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    transition: 'all 0.5s'
+                };
             }
         },
         outerContainer: function outerContainer(isOpen) {
@@ -2355,7 +2383,19 @@ var styles = {
                     transform: isOpen ? '' : 'translate3d(0, -' + height + ', 0)',
                     transition: 'all 0.5s'
                 };
+            case 'top':
+                return {
+                    MozTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    MsTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    OTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    WebkitTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    transform: isOpen ? '' : 'translate3d(0, ' + height + ', 0)',
+                    transition: 'all 0.5s'
+                };
             }
+        },
+        itemList: function itemList(isOpen, width, height, position) {
+            return { overflow: 'hidden' };
         },
         outerContainer: function outerContainer(isOpen) {
             return { overflow: isOpen ? '' : 'hidden' };
@@ -2403,6 +2443,15 @@ var styles = {
                     OTransform: isOpen ? '' : 'translate3d(0, -' + height + ', 0) rotateX(25deg)',
                     WebkitTransform: isOpen ? '' : 'translate3d(0, -' + height + ', 0) rotateX(25deg)',
                     transform: isOpen ? '' : 'translate3d(0, -' + height + ', 0) rotateX(25deg)',
+                    transition: 'all 0.5s'
+                };
+            case 'top':
+                return {
+                    MozTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
+                    MsTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
+                    OTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
+                    WebkitTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
+                    transform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
                     transition: 'all 0.5s'
                 };
             }
@@ -2485,6 +2534,15 @@ var styles = {
                     transform: isOpen ? '' : 'translate3d(0, -' + height + ', 0) rotateX(25deg)',
                     transition: 'all 0.5s'
                 };
+            case 'top':
+                return {
+                    MozTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
+                    MsTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
+                    OTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
+                    WebkitTransform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
+                    transform: isOpen ? '' : 'translate3d(0, ' + height + ', 0) rotateX(25deg)',
+                    transition: 'all 0.5s'
+                };
             }
         },
         outerContainer: function outerContainer(isOpen) {
@@ -2541,6 +2599,7 @@ var styles = {
             }
             switch (position) {
             case 'bottom':
+            case 'top':
                 return { width: '100%' };
             default:
                 return {
@@ -2599,15 +2658,27 @@ var styles = {
                 };
             }
         },
-        item: function item(isOpen, width, height, position, breakpoint, nthChild) {
-            return {
-                MozTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
-                MsTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
-                OTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
-                WebkitTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
-                transform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
-                transition: isOpen ? 'transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)' : 'transform 0s 0.2s cubic-bezier(0.7, 0, 0.3, 1)'
-            };
+        item: function item(isOpen, width, height, position, breakpoint, nthChild, children) {
+            switch (position) {
+            case 'top':
+                return {
+                    MozTransform: isOpen ? '' : 'translate3d(0, ' + (children + 1 - nthChild) * -500 + 'px, 0)',
+                    MsTransform: isOpen ? '' : 'translate3d(0, ' + (children + 1 - nthChild) * -500 + 'px, 0)',
+                    OTransform: isOpen ? '' : 'translate3d(0, ' + (children + 1 - nthChild) * -500 + 'px, 0)',
+                    WebkitTransform: isOpen ? '' : 'translate3d(0, ' + (children + 1 - nthChild) * -500 + 'px, 0)',
+                    transform: isOpen ? '' : 'translate3d(0, ' + (children + 1 - nthChild) * -500 + 'px, 0)',
+                    transition: isOpen ? 'transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)' : 'transform 0s 0.2s cubic-bezier(0.7, 0, 0.3, 1)'
+                };
+            default:
+                return {
+                    MozTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
+                    MsTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
+                    OTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
+                    WebkitTransform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
+                    transform: isOpen ? '' : 'translate3d(0, ' + nthChild * 500 + 'px, 0)',
+                    transition: isOpen ? 'transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)' : 'transform 0s 0.2s cubic-bezier(0.7, 0, 0.3, 1)'
+                };
+            }
         }
     };
 exports['default'] = (0, _menuFactory2['default'])(styles);

@@ -1,7 +1,8 @@
 'use strict';
+require('../test/utils/dom.js');
 
 import React from 'react';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import { expect } from 'chai';
 import createShallowComponent from './utils/createShallowComponent';
 import BurgerMenu from '../lib/BurgerMenu';
@@ -43,7 +44,7 @@ describe('elastic', () => {
   it('has correct menuWrap styles', () => {
     expect(menuWrap.props.style.position).to.equal('fixed');
     expect(menuWrap.props.style.zIndex).to.equal(2);
-    expect(menuWrap.props.style.width).to.equal(300);
+    expect(menuWrap.props.style.width).to.equal('300px');
     expect(menuWrap.props.style.height).to.equal('100%');
   });
 
@@ -77,7 +78,7 @@ describe('elastic', () => {
   });
 
   it('can be positioned on the right', () => {
-    component = TestUtils.renderIntoDocument(<Menu pageWrapId={ 'page-wrap' } outerContainerId={ 'outer-container' } right><div>An item</div></Menu>);
+    component = TestUtils.renderIntoDocument(<Menu pageWrapId={ 'page-wrap' } outerContainerId={ 'outer-container' } position="right"><div>An item</div></Menu>);
     menuWrap = TestUtils.findRenderedDOMComponentWithClass(component, 'bm-menu-wrap');
     menu = TestUtils.findRenderedDOMComponentWithClass(component, 'bm-menu');
     morphShape = TestUtils.findRenderedDOMComponentWithClass(component, 'bm-morph-shape');

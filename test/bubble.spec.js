@@ -1,10 +1,12 @@
 'use strict';
+require('../test/utils/dom.js');
 
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { expect } from 'chai';
 import createShallowComponent from './utils/createShallowComponent';
 import BurgerMenu from '../lib/BurgerMenu';
+
 const Menu = BurgerMenu.bubble;
 
 describe('bubble', () => {
@@ -12,7 +14,7 @@ describe('bubble', () => {
   let component, menuWrap, morphShape, svg, menu, closeButton, itemList, firstItem;
 
   beforeEach(() => {
-    component = createShallowComponent(<Menu><div>An item</div></Menu>);
+    component = createShallowComponent(<Menu pageWrapId={ 'page-wrap' } outerContainerId={ 'outer-container' }><div>An item</div></Menu>);
     menuWrap = component.props.children[1];
     morphShape = menuWrap.props.children[0];
     svg = morphShape.props.children;
@@ -62,7 +64,7 @@ describe('bubble', () => {
   });
 
   it('can be positioned on the right', () => {
-    component = TestUtils.renderIntoDocument(<Menu right><div>An item</div></Menu>);
+    component = TestUtils.renderIntoDocument(<Menu position="right"><div>An item</div></Menu>);
     menuWrap = TestUtils.findRenderedDOMComponentWithClass(component, 'bm-menu-wrap');
     morphShape = TestUtils.findRenderedDOMComponentWithClass(component, 'bm-morph-shape');
     expect(menuWrap.style.right).to.equal('0px');

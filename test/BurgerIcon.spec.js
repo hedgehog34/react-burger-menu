@@ -1,4 +1,5 @@
 'use strict';
+require('../test/utils/dom.js');
 
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';

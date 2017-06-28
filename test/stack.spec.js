@@ -1,7 +1,8 @@
 'use strict';
+require('../test/utils/dom.js');
 
 import React from 'react';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import { expect } from 'chai';
 import createShallowComponent from './utils/createShallowComponent';
 import BurgerMenu from '../lib/BurgerMenu';
@@ -19,7 +20,7 @@ describe('stack', () => {
   it('has correct menuWrap styles', () => {
     expect(menuWrap.props.style.position).to.equal('fixed');
     expect(menuWrap.props.style.zIndex).to.equal(2);
-    expect(menuWrap.props.style.width).to.equal(300);
+    expect(menuWrap.props.style.width).to.equal('300px');
     expect(menuWrap.props.style.height).to.equal('100%');
   });
 
@@ -44,7 +45,7 @@ describe('stack', () => {
   });
 
   it('can be positioned on the right', () => {
-    component = TestUtils.renderIntoDocument(<Menu right><div>An item</div></Menu>);
+    component = TestUtils.renderIntoDocument(<Menu position="right"><div>An item</div></Menu>);
     menuWrap = TestUtils.findRenderedDOMComponentWithClass(component, 'bm-menu-wrap');
     expect(menuWrap.style.right).to.equal('0px');
   });
