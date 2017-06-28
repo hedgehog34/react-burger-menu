@@ -1,4 +1,5 @@
 import jsdom from 'jsdom';
+const { JSDOM } = jsdom;
 
 // From mocha-jsdom https://github.com/rstacruz/mocha-jsdom/blob/master/index.js#L80
 function propagateToGlobal(window) {
@@ -11,20 +12,11 @@ function propagateToGlobal(window) {
 }
 
 function dom() {
-  // Set up the simplest document possible.
-  let doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
+  // Set up the window from simplest document possible.
+  const { window } = new JSDOM('<!doctype html><html><body></body></html>');
 
-  // Get the window object out of the document.
-  let win = doc.defaultView;
-
-  // Set globals for Mocha that make access to document and window feel
-  // natural in the test environment.
-  global.document = doc;
-  global.window = win;
-
-  // Take all properties of the window object and also attach it to the
-  // Mocha global object.
-  propagateToGlobal(win);
+  // Take all properties of the window object and also attach it to the Mocha global object.
+  propagateToGlobal(window);
 }
 
 dom();
