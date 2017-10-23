@@ -433,17 +433,18 @@ describe('menuFactory', () => {
     describe('change', () => {
 
       it('should not occur when parent component state changes', () => {
-        const ParentComponent = React.createClass({
-          getInitialState() {
-            return { example: true };
-          },
-          triggerStateChange() {
-            this.setState({ example: !this.state.example });
-          },
-          render() {
-            return <Menu ref="menu" />;
+          class ParentComponent extends React.Component {
+              constructor (props) {
+                  super(props);
+                  this.state = { example: true };
+              }
+              triggerStateChange() {
+                  this.setState({ example: !this.state.example });
+              }
+              render() {
+                  return <Menu ref="menu" />;
+              }
           }
-        });
 
         const parent = TestUtils.renderIntoDocument(<ParentComponent />, container);
         const menu = parent.refs.menu;
@@ -453,85 +454,89 @@ describe('menuFactory', () => {
       });
 
       it('should not occur when isOpen prop was not changed', () => {
-        const ParentComponent = React.createClass({
-          getInitialState() {
-            return { example: true };
-          },
-          triggerRender() {
-            this.setState({ example: !this.state.example });
-          },
-          render() {
-            return <Menu ref="menu" isOpen />;
+          class ParentComponent extends React.Component {
+              constructor (props) {
+                  super(props);
+                  this.state = { example: true };
+              }
+              triggerStateChange() {
+                  this.setState({ example: !this.state.example });
+              }
+              render() {
+                  return <Menu ref="menu" isOpen />;
+              }
           }
-        });
 
         const parent = TestUtils.renderIntoDocument(<ParentComponent />, container);
         const menu = parent.refs.menu;
         menu.setState({isOpen: false});
-        parent.triggerRender();
+        parent.triggerStateChange();
         expect(menu.state.isOpen).to.be.true;
       });
 
       it('should not occur when receiving new props if isOpen prop is undefined', () => {
-        const ParentComponent = React.createClass({
-          getInitialState() {
-            return { example: true };
-          },
-          changeOtherProps() {
-            this.setState({ example: !this.state.example });
-          },
-          render() {
-            return <Menu ref="menu" right={ this.state.example } />;
+          class ParentComponent extends React.Component {
+              constructor (props) {
+                  super(props);
+                  this.state = { example: true };
+              }
+              triggerStateChange() {
+                  this.setState({ example: !this.state.example });
+              }
+              render() {
+                  return <Menu ref="menu" right={ this.state.example } />;
+              }
           }
-        });
 
         const parent = TestUtils.renderIntoDocument(<ParentComponent />, container);
         const menu = parent.refs.menu;
         menu.setState({isOpen: true});
-        parent.changeOtherProps();
+        parent.triggerStateChange();
         expect(menu.state.isOpen).to.be.true;
       });
 
       it('should not trigger wrappers if isOpen prop was not changed', () => {
         const applyWrapperStyles = sinon.spy(component, 'applyWrapperStyles');
 
-        const ParentComponent = React.createClass({
-          getInitialState() {
-            return { example: true };
-          },
-          triggerRender() {
-            this.setState({ example: !this.state.example });
-          },
-          render() {
-            return <Menu ref="menu" isOpen />;
+          class ParentComponent extends React.Component {
+              constructor (props) {
+                  super(props);
+                  this.state = { example: true };
+              }
+              triggerStateChange() {
+                  this.setState({ example: !this.state.example });
+              }
+              render() {
+                  return <Menu ref="menu" isOpen />;
+              }
           }
-        });
 
         const parent = TestUtils.renderIntoDocument(<ParentComponent />, container);
         const menu = parent.refs.menu;
         menu.setState({isOpen: false});
-        parent.triggerRender();
+        parent.triggerStateChange();
         expect(applyWrapperStyles.called).to.be.false;
         component.applyWrapperStyles.restore();
       });
 
       it('should close menu if isOpen is only ever set to false', () => {
-        const ParentComponent = React.createClass({
-          getInitialState() {
-            return { example: true };
-          },
-          triggerRender() {
-            this.setState({ example: !this.state.example });
-          },
-          render() {
-            return <Menu ref="menu" isOpen={ false } />;
+          class ParentComponent extends React.Component {
+              constructor (props) {
+                  super(props);
+                  this.state = { example: true };
+              }
+              triggerStateChange() {
+                  this.setState({ example: !this.state.example });
+              }
+              render() {
+                  return <Menu ref="menu" isOpen={false} />;
+              }
           }
-        });
 
         const parent = TestUtils.renderIntoDocument(<ParentComponent />, container);
         const menu = parent.refs.menu;
         menu.setState({isOpen: true});
-        parent.triggerRender();
+        parent.triggerStateChange();
         expect(menu.state.isOpen).to.be.false;
       });
 
@@ -543,23 +548,25 @@ describe('menuFactory', () => {
           isOpen = false;
           called = true;
         };
-        const ParentComponent = React.createClass({
-          getInitialState() {
-            return { example: true };
-          },
-          triggerRender() {
-            this.setState({ example: !this.state.example });
-          },
-          render() {
-            return <Menu ref="menu" onStateChange={ callback } isOpen={ isOpen } />;
+
+          class ParentComponent extends React.Component {
+              constructor (props) {
+                  super(props);
+                  this.state = { example: true };
+              }
+              triggerStateChange() {
+                  this.setState({ example: !this.state.example });
+              }
+              render() {
+                  return <Menu ref="menu" onStateChange={ callback } isOpen={ isOpen } />;
+              }
           }
-        });
 
         const parent = TestUtils.renderIntoDocument(<ParentComponent />, container);
         const menu = parent.refs.menu;
         menu.setState({isOpen: false});
         called = false; // reset called
-        parent.triggerRender();
+        parent.triggerStateChange();
         expect(menu.state.isOpen).to.be.false;
         expect(called).to.be.false;
       });

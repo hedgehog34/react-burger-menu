@@ -37,7 +37,7 @@
     "react-component-gulp-tasks": "^0.7.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
-    "sinon": "^2.3.5"
+    "sinon": "^2.3.6"
   },
   "peerDependencies": {
     "react": ">=0.14.0 <16.0.0",
