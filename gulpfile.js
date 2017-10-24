@@ -1,12 +1,12 @@
 var gulp = require('gulp');
-var initGulpTasks = require('react-component-gulp-tasks');
+var initGulpTasks = require('react-component-gulp-tasks-accountz');
 var initTestTasks = require('./tasks/test');
 var initReleaseTasks = require('./tasks/release');
 
 /**
- * Tasks are added by the react-component-gulp-tasks package
+ * Tasks are added by the react-component-gulp-tasks-accountzs package
  *
- * See https://github.com/JedWatson/react-component-gulp-tasks
+ * See https://github.com/hedgehog34/react-component-gulp-tasks
  * for documentation.
  *
  * You can also add your own additional gulp tasks if you like.
