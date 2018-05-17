@@ -1856,7 +1856,11 @@ exports['default'] = function (styles) {
                 {
                     key: 'componentDidMount',
                     value: function componentDidMount() {
-                        window.onkeydown = this.listenForClose.bind(this);
+                        if (this.props.customOnKeyDown) {
+                            window.onkeydown = this.props.customOnKeyDown;
+                        } else if (!this.props.disableCloseOnEsc) {
+                            window.onkeydown = this.listenForClose.bind(this);
+                        }
                         if (this.props.isOpen) {
                             this.toggleMenu();
                         }
@@ -1962,6 +1966,8 @@ exports['default'] = function (styles) {
             _propTypes2['default'].element,
             _propTypes2['default'].oneOf([false])
         ]),
+        customOnKeyDown: _propTypes2['default'].func,
+        disableCloseOnEsc: _propTypes2['default'].bool,
         height: _propTypes2['default'].oneOfType([
             _propTypes2['default'].number,
             _propTypes2['default'].string
@@ -1986,6 +1992,7 @@ exports['default'] = function (styles) {
     };
     Menu.defaultProps = {
         breakpoint: 960,
+        disableCloseOnEsc: false,
         height: 350,
         id: '',
         noOverlay: false,
