@@ -187,6 +187,34 @@ var isMenuOpen = function(state) {
 <Menu onStateChange={ isMenuOpen } />
 ```
 
+#### Close on Escape
+
+By default, the menu will close when the Escape key is pressed. To disable this behavior, you can pass the `disableCloseOnEsc` prop. This is useful in cases where you want the menu to be open all the time, for example if you're implementing a responsive menu that behaves differently depending on the browser width.
+
+``` javascript
+<Menu disableCloseOnEsc />
+```
+
+#### Custom `window.onkeydown` handler
+
+For more control over global keypress functionality, you can override the handler that this component sets for `window.onkeydown`, and pass a custom function. This could be useful if you are using multiple instances of this component, for example, and want to implement functionality to ensure that a single press of the Escape key closes them all.
+
+``` javascript
+const closeAllMenusOnEsc = (e) => {
+  e = e || window.event;
+
+  if (e.key === 'Escape' || e.keyCode === 27) {
+    this.setState({areMenusOpen: false});
+  }
+};
+
+// Because we can only set one window.onkeydown handler, the last menu you include will override any handlers set by previous ones.
+// For that reason, it's recommended that you pass the same function to all menus to avoid unexpected behavior.
+<MenuOne customOnKeyDown={closeAllMenusOnEsc} isOpen={areMenusOpen} />
+<MenuTwo customOnKeyDown={closeAllMenusOnEsc} isOpen={areMenusOpen} />
+```
+*Note: Using this prop will disable all the default 'close on Escape' functionality, so you will need to handle this (including determining which key was pressed) yourself.*
+
 #### Overlay
 
 You can turn off the default overlay with `noOverlay`.

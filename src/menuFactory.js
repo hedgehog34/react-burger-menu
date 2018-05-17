@@ -151,7 +151,12 @@ export default (styles) => {
     }
 
     componentDidMount() {
-      window.onkeydown = this.listenForClose.bind(this);
+      // Bind ESC key handler (unless disabled or custom function supplied).
+      if (this.props.customOnKeyDown) {
+          window.onkeydown = this.props.customOnKeyDown;
+      } else if (!this.props.disableCloseOnEsc) {
+          window.onkeydown = this.listenForClose.bind(this);
+      }
 
       // Allow initial open state to be set by props for animations with wrapper elements.
       if (this.props.isOpen) {
@@ -233,6 +238,8 @@ export default (styles) => {
     className: PropTypes.string,
     customBurgerIcon: PropTypes.oneOfType([PropTypes.element, PropTypes.oneOf([false])]),
     customCrossIcon: PropTypes.oneOfType([PropTypes.element, PropTypes.oneOf([false])]),
+    customOnKeyDown: PropTypes.func,
+    disableCloseOnEsc: PropTypes.bool,
     height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     id: PropTypes.string,
     isOpen: PropTypes.bool,
@@ -247,6 +254,7 @@ export default (styles) => {
 
   Menu.defaultProps = {
     breakpoint: 960,
+    disableCloseOnEsc: false,
     height: 350,
     id: '',
     noOverlay: false,
