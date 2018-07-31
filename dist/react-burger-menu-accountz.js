@@ -1452,7 +1452,7 @@ var styles = {
                     OTransform: isOpen ? '' : 'translate3d(100%, 0, 0)',
                     WebkitTransform: isOpen ? '' : 'translate3d(100%, 0, 0)',
                     transform: isOpen ? '' : 'translate3d(100%, 0, 0)',
-                    transition: 'all 0.5s'
+                    transition: 'all 0.2s'
                 };
             case 'bottom':
                 return {
@@ -1466,7 +1466,7 @@ var styles = {
                     OTransform: isOpen ? '' : 'translate3d(0, 100%, 0)',
                     WebkitTransform: isOpen ? '' : 'translate3d(0, 100%, 0)',
                     transform: isOpen ? '' : 'translate3d(0, 100%, 0)',
-                    transition: 'all 0.5s'
+                    transition: 'all 0.2s'
                 };
             case 'top':
                 return {
@@ -1480,7 +1480,7 @@ var styles = {
                     OTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
                     WebkitTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
                     transform: isOpen ? '' : 'translate3d(0, -100%, 0)',
-                    transition: 'all 0.5s'
+                    transition: 'all 0.2s'
                 };
             default:
                 return {
@@ -1494,7 +1494,7 @@ var styles = {
                     OTransform: isOpen ? '' : 'translate3d(-100%, 0, 0)',
                     WebkitTransform: isOpen ? '' : 'translate3d(-100%, 0, 0)',
                     transform: isOpen ? '' : 'translate3d(-100%, 0, 0)',
-                    transition: 'all 0.5s'
+                    transition: 'all 0.2s'
                 };
             }
         },
@@ -1617,13 +1617,35 @@ var _BurgerIcon = require('./BurgerIcon');
 var _BurgerIcon2 = _interopRequireDefault(_BurgerIcon);
 var _CrossIcon = require('./CrossIcon');
 var _CrossIcon2 = _interopRequireDefault(_CrossIcon);
+var defaultStyles = {
+        dragHandle: {
+            zIndex: 1,
+            position: 'fixed',
+            top: 0,
+            bottom: 0
+        }
+    };
 exports['default'] = function (styles) {
     var Menu = function (_Component) {
             _inherits(Menu, _Component);
             function Menu(props) {
                 _classCallCheck(this, Menu);
                 _get(Object.getPrototypeOf(Menu.prototype), 'constructor', this).call(this, props);
-                this.state = { isOpen: props && typeof props.isOpen !== 'undefined' ? props.isOpen : false };
+                this.state = {
+                    isOpen: props && typeof props.isOpen !== 'undefined' ? props.isOpen : false,
+                    sidebarWidth: props.width,
+                    touchIdentifier: null,
+                    touchStartX: null,
+                    touchStartY: null,
+                    touchCurrentX: null,
+                    touchCurrentY: null,
+                    dragSupported: false
+                };
+                this.onTouchStart = this.onTouchStart.bind(this);
+                this.onTouchMove = this.onTouchMove.bind(this);
+                this.onTouchEnd = this.onTouchEnd.bind(this);
+                this.onScroll = this.onScroll.bind(this);
+                this.saveSidebarRef = this.saveSidebarRef.bind(this);
             }
             _createClass(Menu, [
                 {
@@ -1752,6 +1774,8 @@ exports['default'] = function (styles) {
                         if (this.props.isOpen) {
                             this.toggleMenu();
                         }
+                        this.setState({ dragSupported: typeof window === 'object' && 'ontouchstart' in window });
+                        this.saveSidebarWidth();
                     }
                 },
                 {
@@ -1778,6 +1802,9 @@ exports['default'] = function (styles) {
                                 }
                             }());
                         }
+                        if (!this.isTouching()) {
+                            this.saveSidebarWidth();
+                        }
                     }
                 },
                 {
@@ -1789,18 +1816,182 @@ exports['default'] = function (styles) {
                     }
                 },
                 {
+                    key: 'isTouching',
+                    value: function isTouching() {
+                        return this.state.touchIdentifier !== null;
+                    }
+                },
+                {
+                    key: 'onTouchStart',
+                    value: function onTouchStart(ev) {
+                        if (!this.isTouching()) {
+                            var touch = ev.targetTouches[0];
+                            this.setState({
+                                touchIdentifier: touch.identifier,
+                                touchStartX: touch.clientX,
+                                touchStartY: touch.clientY,
+                                touchCurrentX: touch.clientX,
+                                touchCurrentY: touch.clientY
+                            });
+                        }
+                    }
+                },
+                {
+                    key: 'onTouchMove',
+                    value: function onTouchMove(ev) {
+                        if (this.isTouching()) {
+                            for (var ind = 0; ind < ev.targetTouches.length; ind++) {
+                                if (ev.targetTouches[ind].identifier === this.state.touchIdentifier) {
+                                    this.setState({
+                                        touchCurrentX: ev.targetTouches[ind].clientX,
+                                        touchCurrentY: ev.targetTouches[ind].clientY
+                                    });
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    key: 'onTouchEnd',
+                    value: function onTouchEnd() {
+                        if (this.isTouching()) {
+                            var touchWidth = this.touchSidebarWidth();
+                            if (this.state.isOpen && touchWidth < this.state.sidebarWidth - this.props.dragToggleDistance || !this.state.isOpen && touchWidth > this.props.dragToggleDistance) {
+                                this.setState({ isOpen: !this.state.isOpen });
+                            }
+                            this.setState({
+                                touchIdentifier: null,
+                                touchStartX: null,
+                                touchStartY: null,
+                                touchCurrentX: null,
+                                touchCurrentY: null
+                            });
+                        }
+                    }
+                },
+                {
+                    key: 'touchSidebarWidth',
+                    value: function touchSidebarWidth() {
+                        if (this.props.position === 'right') {
+                            if (this.state.isOpen && window.innerWidth - this.state.touchStartX < this.state.sidebarWidth) {
+                                if (this.state.touchCurrentX > this.state.touchStartX) {
+                                    return this.state.sidebarWidth + this.state.touchStartX - this.state.touchCurrentX;
+                                }
+                                return this.state.sidebarWidth;
+                            }
+                            return Math.min(window.innerWidth - this.state.touchCurrentX, this.state.sidebarWidth);
+                        }
+                        if (this.props.position === 'left') {
+                            if (this.state.isOpen && this.state.touchStartX < this.state.sidebarWidth) {
+                                if (this.state.touchCurrentX > this.state.touchStartX) {
+                                    return this.state.sidebarWidth;
+                                }
+                                return this.state.sidebarWidth - this.state.touchStartX + this.state.touchCurrentX;
+                            }
+                        }
+                        return Math.min(this.state.touchCurrentX, this.state.sidebarWidth);
+                    }
+                },
+                {
+                    key: 'onScroll',
+                    value: function onScroll() {
+                        if (this.isTouching() && this.inCancelDistanceOnScroll()) {
+                            this.setState({
+                                touchIdentifier: null,
+                                touchStartX: null,
+                                touchStartY: null,
+                                touchCurrentX: null,
+                                touchCurrentY: null
+                            });
+                        }
+                    }
+                },
+                {
+                    key: 'inCancelDistanceOnScroll',
+                    value: function inCancelDistanceOnScroll() {
+                        var _state = this.state;
+                        var touchCurrentX = _state.touchCurrentX;
+                        var touchStartX = _state.touchStartX;
+                        var position = this.props.position;
+                        var CANCEL_DISTANCE_ON_SCROLL = 20;
+                        var cancelDistanceOnScroll = undefined;
+                        if (position === 'right') {
+                            cancelDistanceOnScroll = Math.abs(touchCurrentX - touchStartX) < CANCEL_DISTANCE_ON_SCROLL;
+                        } else if (position === 'left') {
+                            cancelDistanceOnScroll = Math.abs(touchStartX - touchCurrentX) < CANCEL_DISTANCE_ON_SCROLL;
+                        } else
+                            return;
+                        return cancelDistanceOnScroll;
+                    }
+                },
+                {
+                    key: 'saveSidebarWidth',
+                    value: function saveSidebarWidth() {
+                        var width = this.sidebar.offsetWidth;
+                        if (width !== this.state.sidebarWidth) {
+                            this.setState({ sidebarWidth: width });
+                        }
+                    }
+                },
+                {
+                    key: 'saveSidebarRef',
+                    value: function saveSidebarRef(node) {
+                        this.sidebar = node;
+                    }
+                },
+                {
                     key: 'render',
                     value: function render() {
                         var _this3 = this;
-                        return _react2['default'].createElement('div', null, !this.props.noOverlay ? _react2['default'].createElement('div', {
+                        var _state2 = this.state;
+                        var isOpen = _state2.isOpen;
+                        var dragSupported = _state2.dragSupported;
+                        var _props2 = this.props;
+                        var touchHandleWidth = _props2.touchHandleWidth;
+                        var position = _props2.position;
+                        var noOverlay = _props2.noOverlay;
+                        var id = _props2.id;
+                        var className = _props2.className;
+                        var customCrossIcon = _props2.customCrossIcon;
+                        var customBurgerIcon = _props2.customBurgerIcon;
+                        var styles = _props2.styles;
+                        var children = _props2.children;
+                        var rootProps = {};
+                        var dragHandle = undefined;
+                        if (dragSupported) {
+                            if (isOpen) {
+                                rootProps.onTouchStart = this.onTouchStart;
+                                rootProps.onTouchMove = this.onTouchMove;
+                                rootProps.onTouchEnd = this.onTouchEnd;
+                                rootProps.onTouchCancel = this.onTouchEnd;
+                                rootProps.onScroll = this.onScroll;
+                            } else {
+                                var dragHandleStyle = _extends({}, defaultStyles.dragHandle);
+                                dragHandleStyle.width = touchHandleWidth;
+                                if (position === 'left') {
+                                    dragHandleStyle.left = 0;
+                                } else if (position === 'right') {
+                                    dragHandleStyle.right = 0;
+                                }
+                                dragHandle = (position === 'left' || position === 'right') && _react2['default'].createElement('div', {
+                                    style: dragHandleStyle,
+                                    onTouchStart: this.onTouchStart,
+                                    onTouchMove: this.onTouchMove,
+                                    onTouchEnd: this.onTouchEnd,
+                                    onTouchCancel: this.onTouchEnd
+                                });
+                            }
+                        }
+                        return _react2['default'].createElement('div', rootProps, dragHandle, !noOverlay && _react2['default'].createElement('div', {
                             className: 'bm-overlay',
                             onClick: function () {
                                 return _this3.toggleMenu();
                             },
                             style: this.getStyles('overlay')
-                        }) : null, _react2['default'].createElement('div', {
-                            id: this.props.id,
-                            className: 'bm-menu-wrap ' + (this.props.className || ''),
+                        }), _react2['default'].createElement('div', {
+                            id: id,
+                            className: 'bm-menu-wrap ' + (className || ''),
                             style: this.getStyles('menuWrap')
                         }, styles.svg ? _react2['default'].createElement('div', {
                             className: 'bm-morph-shape',
@@ -1812,31 +2003,32 @@ exports['default'] = function (styles) {
                             preserveAspectRatio: 'none'
                         }, _react2['default'].createElement('path', { d: styles.svg.pathInitial }))) : null, _react2['default'].createElement('div', {
                             className: 'bm-menu',
-                            style: this.getStyles('menu')
+                            style: this.getStyles('menu'),
+                            ref: this.saveSidebarRef
                         }, _react2['default'].createElement('nav', {
                             className: 'bm-item-list',
                             style: this.getStyles('itemList')
-                        }, _react2['default'].Children.map(this.props.children, function (item, index) {
+                        }, _react.Children.map(children, function (item, index) {
                             if (item) {
-                                var children = _this3.props.children.length;
+                                var kids = children.length;
                                 var extraProps = {
                                         key: index,
-                                        style: _this3.getStyles('item', index, item.props.style, children)
+                                        style: _this3.getStyles('item', index, item.props.style, kids)
                                     };
-                                return _react2['default'].cloneElement(item, extraProps);
+                                return (0, _react.cloneElement)(item, extraProps);
                             }
-                        }))), this.props.customCrossIcon !== false ? _react2['default'].createElement('div', { style: this.getStyles('closeButton') }, _react2['default'].createElement(_CrossIcon2['default'], {
+                        }))), customCrossIcon !== false ? _react2['default'].createElement('div', { style: this.getStyles('closeButton') }, _react2['default'].createElement(_CrossIcon2['default'], {
                             onClick: function () {
                                 return _this3.toggleMenu();
                             },
-                            styles: this.props.styles,
-                            customIcon: this.props.customCrossIcon
-                        })) : null), this.props.customBurgerIcon !== false ? _react2['default'].createElement(_BurgerIcon2['default'], {
+                            styles: styles,
+                            customIcon: customCrossIcon
+                        })) : null), customBurgerIcon !== false ? _react2['default'].createElement(_BurgerIcon2['default'], {
                             onClick: function () {
                                 return _this3.toggleMenu();
                             },
-                            styles: this.props.styles,
-                            customIcon: this.props.customBurgerIcon
+                            styles: styles,
+                            customIcon: customBurgerIcon
                         }) : null);
                     }
                 }
@@ -1856,6 +2048,7 @@ exports['default'] = function (styles) {
         ]),
         customOnKeyDown: _propTypes2['default'].func,
         disableCloseOnEsc: _propTypes2['default'].bool,
+        dragToggleDistance: _propTypes2['default'].number,
         height: _propTypes2['default'].oneOfType([
             _propTypes2['default'].number,
             _propTypes2['default'].string
@@ -1873,6 +2066,7 @@ exports['default'] = function (styles) {
             'top'
         ]),
         styles: _propTypes2['default'].object,
+        touchHandleWidth: _propTypes2['default'].number,
         width: _propTypes2['default'].oneOfType([
             _propTypes2['default'].number,
             _propTypes2['default'].string
@@ -1881,6 +2075,7 @@ exports['default'] = function (styles) {
     Menu.defaultProps = {
         breakpoint: 960,
         disableCloseOnEsc: false,
+        dragToggleDistance: 30,
         height: 350,
         id: '',
         noOverlay: false,
@@ -1890,6 +2085,7 @@ exports['default'] = function (styles) {
         pageWrapId: '',
         position: 'left',
         styles: {},
+        touchHandleWidth: 100,
         width: 300
     };
     return Menu;
