@@ -33,7 +33,7 @@ let styles = {
                 OTransform: isOpen ? '' : 'translate3d(100%, 0, 0)',
                 WebkitTransform: isOpen ? '' : 'translate3d(100%, 0, 0)',
                 transform: isOpen ? '' : 'translate3d(100%, 0, 0)',
-                transition: 'all 0.5s'
+                transition: 'all 0.2s'
             };
 
         case 'bottom':
@@ -48,7 +48,7 @@ let styles = {
                 OTransform: isOpen ? '' : 'translate3d(0, 100%, 0)',
                 WebkitTransform: isOpen ? '' : 'translate3d(0, 100%, 0)',
                 transform: isOpen ? '' : 'translate3d(0, 100%, 0)',
-                transition: 'all 0.5s'
+                transition: 'all 0.2s'
             };
 
         case 'top':
@@ -63,7 +63,7 @@ let styles = {
                 OTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
                 WebkitTransform: isOpen ? '' : 'translate3d(0, -100%, 0)',
                 transform: isOpen ? '' : 'translate3d(0, -100%, 0)',
-                transition: 'all 0.5s'
+                transition: 'all 0.2s'
             };
 
         default:
@@ -78,7 +78,7 @@ let styles = {
                 OTransform: isOpen ? '' : 'translate3d(-100%, 0, 0)',
                 WebkitTransform: isOpen ? '' : 'translate3d(-100%, 0, 0)',
                 transform: isOpen ? '' : 'translate3d(-100%, 0, 0)',
-                transition: 'all 0.5s'
+                transition: 'all 0.2s'
             };
     }
   },
