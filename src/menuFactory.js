@@ -271,7 +271,8 @@ export default (styles) => {
 
                 if (this.state.isOpen && touchWidth < this.state.sidebarWidth - this.props.dragToggleDistance ||
                     !this.state.isOpen && touchWidth > this.props.dragToggleDistance) {
-                    this.setState({ isOpen: !this.state.isOpen });
+                    // this.setState({ isOpen: !this.state.isOpen });
+                    this.toggleMenu();
                 }
 
                 this.setState({
