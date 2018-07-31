@@ -1858,7 +1858,7 @@ exports['default'] = function (styles) {
                         if (this.isTouching()) {
                             var touchWidth = this.touchSidebarWidth();
                             if (this.state.isOpen && touchWidth < this.state.sidebarWidth - this.props.dragToggleDistance || !this.state.isOpen && touchWidth > this.props.dragToggleDistance) {
-                                this.setState({ isOpen: !this.state.isOpen });
+                                this.toggleMenu();
                             }
                             this.setState({
                                 touchIdentifier: null,
@@ -1983,6 +1983,7 @@ exports['default'] = function (styles) {
                                 });
                             }
                         }
+                        console.log(this.state.isOpen);
                         return _react2['default'].createElement('div', rootProps, dragHandle, !noOverlay && _react2['default'].createElement('div', {
                             className: 'bm-overlay',
                             onClick: function () {
