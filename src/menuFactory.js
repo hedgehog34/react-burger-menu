@@ -380,7 +380,7 @@ export default (styles) => {
                         dragHandleStyle.right = 0;
                     }
 
-                    dragHandle = (position === 'left' || position === 'right') && (
+                    dragHandle = position === 'left' && (
                         <div style={dragHandleStyle}
                              onTouchStart={this.onTouchStart}
                              onTouchMove={this.onTouchMove}
