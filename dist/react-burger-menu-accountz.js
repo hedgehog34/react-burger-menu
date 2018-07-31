@@ -1974,7 +1974,7 @@ exports['default'] = function (styles) {
                                 } else if (position === 'right') {
                                     dragHandleStyle.right = 0;
                                 }
-                                dragHandle = (position === 'left' || position === 'right') && _react2['default'].createElement('div', {
+                                dragHandle = position === 'left' && _react2['default'].createElement('div', {
                                     style: dragHandleStyle,
                                     onTouchStart: this.onTouchStart,
                                     onTouchMove: this.onTouchMove,
