@@ -349,7 +349,7 @@ export default (styles) => {
 
         render() {
             const { isOpen, dragSupported } = this.state;
-            const { touchHandleWidth, position, noOverlay, id, className, customCrossIcon, customBurgerIcon, styles, children } = this.props;
+            const { touchHandleWidth, position, noOverlay, id, className, customCrossIcon, customBurgerIcon, children, styles: propsStyles } = this.props;
 
             const rootProps = {};
             let dragHandle;
@@ -430,7 +430,7 @@ export default (styles) => {
 
                         {customCrossIcon !== false && (
                             <CrossIcon onClick={() => this.toggleMenu()}
-                                       styles={styles}
+                                       styles={propsStyles}
                                        customIcon={customCrossIcon}/>
                         )}
 
@@ -438,7 +438,7 @@ export default (styles) => {
 
                     {customBurgerIcon !== false && (
                         <BurgerIcon onClick={() => this.toggleMenu()}
-                                    styles={styles}
+                                    styles={propsStyles}
                                     customIcon={customBurgerIcon}/>
                     )}
 
