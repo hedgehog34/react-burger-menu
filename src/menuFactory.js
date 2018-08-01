@@ -7,15 +7,6 @@ import BurgerIcon from './BurgerIcon';
 import CrossIcon from './CrossIcon';
 
 
-const defaultStyles = {
-    dragHandle: {
-        zIndex: 1,
-        position: 'fixed',
-        top: 0,
-        bottom: 0,
-    },
-};
-
 export default (styles) => {
     class Menu extends Component {
         constructor(props) {
@@ -371,7 +362,7 @@ export default (styles) => {
                     rootProps.onTouchCancel = this.onTouchEnd;
                     rootProps.onScroll = this.onScroll;
                 } else {
-                    const dragHandleStyle = {...defaultStyles.dragHandle};
+                    const dragHandleStyle = this.getStyles('dragHandle');
                     dragHandleStyle.width = touchHandleWidth;
 
                     // dragHandleStyle right/left
@@ -434,21 +425,19 @@ export default (styles) => {
                             </nav>
                         </div>
 
-                        {customCrossIcon !== false ? (
-                            <div style={this.getStyles('closeButton')}>
-                                <CrossIcon onClick={() => this.toggleMenu()}
-                                           styles={styles}
-                                           customIcon={customCrossIcon}/>
-                            </div>
-                        ) : null}
+                        {customCrossIcon !== false && (
+                            <CrossIcon onClick={() => this.toggleMenu()}
+                                       styles={styles}
+                                       customIcon={customCrossIcon}/>
+                        )}
 
                     </div>
 
-                    {customBurgerIcon !== false ? (
+                    {customBurgerIcon !== false && (
                         <BurgerIcon onClick={() => this.toggleMenu()}
                                     styles={styles}
                                     customIcon={customBurgerIcon}/>
-                    ) : null}
+                    )}
 
                 </div>
             );

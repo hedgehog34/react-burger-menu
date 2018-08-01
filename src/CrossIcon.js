@@ -1,7 +1,5 @@
-'use strict';
-
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, cloneElement } from 'react';
+import { element, object } from 'prop-types';
 
 export default class CrossIcon extends Component {
   getCrossStyle(type) {
@@ -14,6 +12,9 @@ export default class CrossIcon extends Component {
   }
 
   render() {
+    const { customIcon, styles, onClick } = this.props;
+    const { bmCross, bmCrossButton } = styles;
+
     let icon;
     const buttonWrapperStyle = {
       position: 'absolute',
@@ -22,6 +23,7 @@ export default class CrossIcon extends Component {
       right: 8,
       top: 8
     };
+
     const buttonStyle = {
       position: 'absolute',
       left: 0,
@@ -36,33 +38,37 @@ export default class CrossIcon extends Component {
       outline: 'none'
     };
 
-    if (this.props.customIcon) {
+    if (customIcon) {
       const extraProps = {
         className: 'bm-cross',
-        style: {...{width: '100%', height: '100%'}, ...this.props.styles.bmCross}
+        style: {...{width: '100%', height: '100%'}, ...bmCross}
       };
-      icon = React.cloneElement(this.props.customIcon, extraProps);
+      icon = cloneElement(customIcon, extraProps);
     } else {
       icon = (
-        <span style={{position: 'absolute', top: '6px', right: '14px'}}>
-          <span className="bm-cross" style={{...this.getCrossStyle('before'), ...this.props.styles.bmCross}} />
-          <span className="bm-cross" style={{...this.getCrossStyle('after'), ...this.props.styles.bmCross}} />
+        <span style={{ position: 'absolute', top: '6px', right: '14px' }}>
+          <span className="bm-cross" style={{...this.getCrossStyle('before'), ...bmCross}} />
+          <span className="bm-cross" style={{...this.getCrossStyle('after'), ...bmCross}} />
         </span>
       );
     }
 
     return (
-      <div className="bm-cross-button" style={{...buttonWrapperStyle, ...this.props.styles.bmCrossButton}}>
+      <div className="bm-cross-button"
+           style={{...buttonWrapperStyle, ...bmCrossButton}}>
         {icon}
-        <button onClick={this.props.onClick} style={buttonStyle}>Close Menu</button>
+        <button onClick={onClick}
+                style={buttonStyle}>
+            Close Menu
+        </button>
       </div>
     );
   }
 }
 
 CrossIcon.propTypes = {
-  customIcon: PropTypes.element,
-  styles: PropTypes.object
+  customIcon: element,
+  styles: object
 };
 
 CrossIcon.defaultProps = {

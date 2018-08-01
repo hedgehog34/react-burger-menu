@@ -1161,6 +1161,13 @@ var BurgerIcon = function (_Component) {
                 key: 'render',
                 value: function render() {
                     var _this = this;
+                    var _props = this.props;
+                    var styles = _props.styles;
+                    var customIcon = _props.customIcon;
+                    var onClick = _props.onClick;
+                    var bmIcon = styles.bmIcon;
+                    var bmBurgerBars = styles.bmBurgerBars;
+                    var bmBurgerButton = styles.bmBurgerButton;
                     var icon = undefined;
                     var buttonStyle = {
                             position: 'absolute',
@@ -1175,33 +1182,33 @@ var BurgerIcon = function (_Component) {
                             background: 'transparent',
                             outline: 'none'
                         };
-                    if (this.props.customIcon) {
+                    if (customIcon) {
                         var extraProps = {
                                 className: 'bm-icon',
                                 style: _extends({
                                     width: '100%',
                                     height: '100%'
-                                }, this.props.styles.bmIcon)
+                                }, bmIcon)
                             };
-                        icon = _react2['default'].cloneElement(this.props.customIcon, extraProps);
+                        icon = _react2['default'].cloneElement(customIcon, extraProps);
                     } else {
                         icon = _react2['default'].createElement('span', null, _react2['default'].createElement('span', {
                             className: 'bm-burger-bars',
-                            style: _extends({}, this.getLineStyle(0), this.props.styles.bmBurgerBars)
+                            style: _extends({}, this.getLineStyle(0), bmBurgerBars)
                         }), _react2['default'].createElement('span', {
                             className: 'bm-burger-bars',
-                            style: _extends({}, this.getLineStyle(1), this.props.styles.bmBurgerBars)
+                            style: _extends({}, this.getLineStyle(1), bmBurgerBars)
                         }), _react2['default'].createElement('span', {
                             className: 'bm-burger-bars',
-                            style: _extends({}, this.getLineStyle(2), this.props.styles.bmBurgerBars)
+                            style: _extends({}, this.getLineStyle(2), bmBurgerBars)
                         }));
                     }
                     return _react2['default'].createElement('div', {
                         className: 'bm-burger-button',
-                        style: _extends({ zIndex: 1 }, this.props.styles.bmBurgerButton)
+                        style: _extends({ zIndex: 1 }, bmBurgerButton)
                     }, icon, _react2['default'].createElement('button', {
                         className: 'bm-burger-button__button',
-                        onClick: this.props.onClick,
+                        onClick: onClick,
                         onMouseEnter: function () {
                             return _this.handleHover();
                         },
@@ -1331,7 +1338,6 @@ function _inherits(subClass, superClass) {
 var _react = typeof window !== 'undefined' ? window['React'] : typeof global !== 'undefined' ? global['React'] : null;
 var _react2 = _interopRequireDefault(_react);
 var _propTypes = require('prop-types');
-var _propTypes2 = _interopRequireDefault(_propTypes);
 var CrossIcon = function (_Component) {
         _inherits(CrossIcon, _Component);
         function CrossIcon() {
@@ -1353,6 +1359,12 @@ var CrossIcon = function (_Component) {
             {
                 key: 'render',
                 value: function render() {
+                    var _props = this.props;
+                    var customIcon = _props.customIcon;
+                    var styles = _props.styles;
+                    var onClick = _props.onClick;
+                    var bmCross = styles.bmCross;
+                    var bmCrossButton = styles.bmCrossButton;
                     var icon = undefined;
                     var buttonWrapperStyle = {
                             position: 'absolute',
@@ -1374,15 +1386,15 @@ var CrossIcon = function (_Component) {
                             background: 'transparent',
                             outline: 'none'
                         };
-                    if (this.props.customIcon) {
+                    if (customIcon) {
                         var extraProps = {
                                 className: 'bm-cross',
                                 style: _extends({
                                     width: '100%',
                                     height: '100%'
-                                }, this.props.styles.bmCross)
+                                }, bmCross)
                             };
-                        icon = _react2['default'].cloneElement(this.props.customIcon, extraProps);
+                        icon = (0, _react.cloneElement)(customIcon, extraProps);
                     } else {
                         icon = _react2['default'].createElement('span', {
                             style: {
@@ -1392,17 +1404,17 @@ var CrossIcon = function (_Component) {
                             }
                         }, _react2['default'].createElement('span', {
                             className: 'bm-cross',
-                            style: _extends({}, this.getCrossStyle('before'), this.props.styles.bmCross)
+                            style: _extends({}, this.getCrossStyle('before'), bmCross)
                         }), _react2['default'].createElement('span', {
                             className: 'bm-cross',
-                            style: _extends({}, this.getCrossStyle('after'), this.props.styles.bmCross)
+                            style: _extends({}, this.getCrossStyle('after'), bmCross)
                         }));
                     }
                     return _react2['default'].createElement('div', {
                         className: 'bm-cross-button',
-                        style: _extends({}, buttonWrapperStyle, this.props.styles.bmCrossButton)
+                        style: _extends({}, buttonWrapperStyle, bmCrossButton)
                     }, icon, _react2['default'].createElement('button', {
-                        onClick: this.props.onClick,
+                        onClick: onClick,
                         style: buttonStyle
                     }, 'Close Menu'));
                 }
@@ -1412,8 +1424,8 @@ var CrossIcon = function (_Component) {
     }(_react.Component);
 exports['default'] = CrossIcon;
 CrossIcon.propTypes = {
-    customIcon: _propTypes2['default'].element,
-    styles: _propTypes2['default'].object
+    customIcon: _propTypes.element,
+    styles: _propTypes.object
 };
 CrossIcon.defaultProps = { styles: {} };
 module.exports = exports['default'];
@@ -1511,6 +1523,14 @@ var styles = {
             return {
                 display: 'block',
                 outline: 'none'
+            };
+        },
+        dragHandle: function dragHandle() {
+            return {
+                zIndex: 1,
+                position: 'fixed',
+                top: 0,
+                bottom: 0
             };
         }
     };
@@ -1617,14 +1637,6 @@ var _BurgerIcon = require('./BurgerIcon');
 var _BurgerIcon2 = _interopRequireDefault(_BurgerIcon);
 var _CrossIcon = require('./CrossIcon');
 var _CrossIcon2 = _interopRequireDefault(_CrossIcon);
-var defaultStyles = {
-        dragHandle: {
-            zIndex: 1,
-            position: 'fixed',
-            top: 0,
-            bottom: 0
-        }
-    };
 exports['default'] = function (styles) {
     var Menu = function (_Component) {
             _inherits(Menu, _Component);
@@ -1967,7 +1979,7 @@ exports['default'] = function (styles) {
                                 rootProps.onTouchCancel = this.onTouchEnd;
                                 rootProps.onScroll = this.onScroll;
                             } else {
-                                var dragHandleStyle = _extends({}, defaultStyles.dragHandle);
+                                var dragHandleStyle = this.getStyles('dragHandle');
                                 dragHandleStyle.width = touchHandleWidth;
                                 if (position === 'left') {
                                     dragHandleStyle.left = 0;
@@ -2017,19 +2029,19 @@ exports['default'] = function (styles) {
                                     };
                                 return (0, _react.cloneElement)(item, extraProps);
                             }
-                        }))), customCrossIcon !== false ? _react2['default'].createElement('div', { style: this.getStyles('closeButton') }, _react2['default'].createElement(_CrossIcon2['default'], {
+                        }))), customCrossIcon !== false && _react2['default'].createElement(_CrossIcon2['default'], {
                             onClick: function () {
                                 return _this3.toggleMenu();
                             },
                             styles: styles,
                             customIcon: customCrossIcon
-                        })) : null), customBurgerIcon !== false ? _react2['default'].createElement(_BurgerIcon2['default'], {
+                        })), customBurgerIcon !== false && _react2['default'].createElement(_BurgerIcon2['default'], {
                             onClick: function () {
                                 return _this3.toggleMenu();
                             },
                             styles: styles,
                             customIcon: customBurgerIcon
-                        }) : null);
+                        }));
                     }
                 }
             ]);

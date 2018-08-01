@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -23,10 +21,12 @@ export default class BurgerIcon extends Component {
   }
 
   handleHover() {
-    this.setState({hover: !this.state.hover});
+    this.setState({ hover: !this.state.hover });
   }
 
   render() {
+    const { styles, customIcon, onClick } = this.props;
+    const { bmIcon, bmBurgerBars, bmBurgerButton, } = styles;
     let icon;
     let buttonStyle = {
       position: 'absolute',
@@ -42,27 +42,27 @@ export default class BurgerIcon extends Component {
       outline: 'none'
     };
 
-    if (this.props.customIcon) {
+    if (customIcon) {
       let extraProps = {
         className: 'bm-icon',
-        style: {...{width: '100%', height: '100%'}, ...this.props.styles.bmIcon}
+        style: {...{width: '100%', height: '100%'}, ...bmIcon}
       };
-      icon = React.cloneElement(this.props.customIcon, extraProps);
+      icon = React.cloneElement(customIcon, extraProps);
     } else {
       icon = (
         <span>
-          <span className="bm-burger-bars" style={{...this.getLineStyle(0), ...this.props.styles.bmBurgerBars}} />
-          <span className="bm-burger-bars" style={{...this.getLineStyle(1), ...this.props.styles.bmBurgerBars}} />
-          <span className="bm-burger-bars" style={{...this.getLineStyle(2), ...this.props.styles.bmBurgerBars}} />
+          <span className="bm-burger-bars" style={{...this.getLineStyle(0), ...bmBurgerBars}} />
+          <span className="bm-burger-bars" style={{...this.getLineStyle(1), ...bmBurgerBars}} />
+          <span className="bm-burger-bars" style={{...this.getLineStyle(2), ...bmBurgerBars}} />
         </span>
       );
     }
 
     return (
-      <div className="bm-burger-button" style={{...{zIndex: 1}, ...this.props.styles.bmBurgerButton}}>
+      <div className="bm-burger-button" style={{...{zIndex: 1}, ...bmBurgerButton}}>
         {icon}
         <button className="bm-burger-button__button"
-                onClick={this.props.onClick}
+                onClick={onClick}
                 onMouseEnter={() => this.handleHover()}
                 onMouseLeave={() => this.handleHover()}
                 style={buttonStyle}>

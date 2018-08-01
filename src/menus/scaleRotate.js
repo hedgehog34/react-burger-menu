@@ -1,5 +1,3 @@
-'use strict';
-
 import menuFactory from '../menuFactory';
 
 const styles = {
