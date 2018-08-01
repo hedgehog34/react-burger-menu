@@ -185,6 +185,7 @@ export default (styles) => {
             this.setState({
                 dragSupported: typeof window === 'object' && 'ontouchstart' in window,
             });
+
             this.saveSidebarWidth();
         }
 
@@ -262,7 +263,6 @@ export default (styles) => {
 
                 if (this.state.isOpen && touchWidth < this.state.sidebarWidth - this.props.dragToggleDistance ||
                     !this.state.isOpen && touchWidth > this.props.dragToggleDistance) {
-                    // this.setState({ isOpen: !this.state.isOpen });
                     this.toggleMenu();
                 }
 
@@ -398,8 +398,11 @@ export default (styles) => {
                          style={this.getStyles('menuWrap')}>
 
                         {styles.svg ? (
-                            <div className="bm-morph-shape" style={this.getStyles('morphShape')}>
-                                <svg width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                            <div className="bm-morph-shape"
+                                 style={this.getStyles('morphShape')}>
+                                <svg width="100%" height="100%"
+                                     viewBox="0 0 100 800"
+                                     preserveAspectRatio="none">
                                     <path d={styles.svg.pathInitial}/>
                                 </svg>
                             </div>

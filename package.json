@@ -56,7 +56,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp clean && gulp build",
     "examples": "gulp dev:server",
-    "lint": "eslint ./; true",
+    "lint": "eslint **/*.js --ignore-pattern node_modules/",
     "publish:site": "gulp publish:examples",
     "publish:version": "gulp commit:version && gulp push",
     "start": "gulp dev",
