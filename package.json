@@ -34,7 +34,6 @@
     "mocha": "^5.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
-    "react-component-gulp-tasks": "^0.7.1",
     "react-component-gulp-tasks-accountz": "^0.7.9",
     "react-dom": "^16.4.1",
     "react-test-renderer": "^16.4.1",

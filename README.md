@@ -383,5 +383,6 @@ https://docs.npmjs.com/getting-started/publishing-npm-packages
 
 After the package get published for the first time, further updates are being done as follows:
 - `npm run build` to build package for publishing
+- commit all changes to git, which will clear the project tree
 - `npm version patch` for small changes (this should be done in semver way - https://docs.npmjs.com/getting-started/semantic-versioning, 3 options here are: `major`, `minor`, `patch`, )
 - `npm publish` (this creates new tag in git)
