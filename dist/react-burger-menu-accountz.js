@@ -1967,8 +1967,8 @@ exports['default'] = function (styles) {
                         var className = _props2.className;
                         var customCrossIcon = _props2.customCrossIcon;
                         var customBurgerIcon = _props2.customBurgerIcon;
-                        var styles = _props2.styles;
                         var children = _props2.children;
+                        var propsStyles = _props2.styles;
                         var rootProps = {};
                         var dragHandle = undefined;
                         if (dragSupported) {
@@ -2033,13 +2033,13 @@ exports['default'] = function (styles) {
                             onClick: function () {
                                 return _this3.toggleMenu();
                             },
-                            styles: styles,
+                            styles: propsStyles,
                             customIcon: customCrossIcon
                         })), customBurgerIcon !== false && _react2['default'].createElement(_BurgerIcon2['default'], {
                             onClick: function () {
                                 return _this3.toggleMenu();
                             },
-                            styles: styles,
+                            styles: propsStyles,
                             customIcon: customBurgerIcon
                         }));
                     }
